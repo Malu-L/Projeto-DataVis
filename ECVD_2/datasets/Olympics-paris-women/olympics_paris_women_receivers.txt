@@ -1,0 +1,150 @@
+Rank-receiver,Player-Name,Team,Succesful-receive,Errors-receive,Attemps-receive,average-per-match-receive,Success-percent-receive,Total-receive
+1,Nyeme,BRA,90,5,43,15.00,65.22,138
+2,A. Skinner,USA,83,7,64,13.83,53.90,154
+3,Gabi,BRA,79,1,24,13.17,75.96,104
+4,Baladın,TUR,73,8,59,12.17,52.14,140
+5,Sylla,ITA,72,7,69,12.00,48.65,148
+6,Bosetti,ITA,62,6,31,10.33,62.63,99
+7,Plummer,USA,61,9,64,10.17,45.52,134
+8,Diken,TUR,57,3,50,9.50,51.82,110
+9,Peña Isabel,DOM,55,7,54,13.75,47.41,116
+10,Szczygłowska,POL,53,4,17,13.25,71.62,74
+11,Wong-Orantes,USA,49,2,33,8.17,58.33,84
+12,Ishikawa,JPN,46,4,13,15.33,73.02,63
+12,Buša,SRB,46,3,26,11.50,61.33,75
+13,Łukasik,POL,45,7,40,11.25,48.91,92
+13,Daalderop,NED,45,4,38,15.00,51.72,87
+14,Uzelac,SRB,44,1,25,11.00,62.86,70
+15,Örge,TUR,43,7,38,7.17,48.86,88
+15,Wang M.J.,CHN,43,5,25,10.75,58.90,73
+16,De Gennaro,ITA,42,1,16,7.00,71.19,59
+16,Knollema,NED,42,3,36,14.00,51.85,81
+17,Zhu T.,CHN,41,5,35,10.25,50.62,81
+18,Castillo,DOM,39,2,22,9.75,61.90,63
+19,Li Y.Y.,CHN,38,5,32,9.50,50.67,75
+20,Ana Cristina,BRA,37,8,43,6.17,42.05,88
+21,Popović S.,SRB,34,3,16,8.50,64.15,53
+22,Martinez,DOM,33,8,39,8.25,41.25,80
+22,Cook,USA,33,3,13,5.50,67.35,49
+23,Giardino,FRA,32,4,20,10.67,57.14,56
+24,Mędrzyk,POL,31,2,24,7.75,54.39,57
+25,Reesink,NED,30,2,15,10.00,63.83,47
+26,Kojima,JPN,28,1,14,9.33,65.12,43
+26,Cazaute,FRA,28,2,34,9.33,43.75,64
+27,Aydın,TUR,27,4,17,5.40,56.25,48
+28,Adhiambo,KEN,26,3,48,8.67,33.77,77
+29,Lazović,SRB,24,4,22,6.00,48.00,50
+30,Koga,JPN,23,1,12,7.67,63.89,36
+31,Czyrniańska,POL,22,5,18,5.50,48.89,45
+31,Gong X.Y.,CHN,22,5,28,5.50,40.00,55
+32,Kundu,KEN,21,3,28,7.00,40.38,52
+33,Karakurt,TUR,20,2,27,3.33,40.82,49
+34,M. Jasper,NED,19,1,6,6.33,73.08,26
+35,Hayashi,JPN,17,2,10,5.67,58.62,29
+36,Cebecioğlu,TUR,16,3,25,2.67,36.36,44
+36,Larson,USA,16,0,16,2.67,50.00,32
+37,De La Cruz,DOM,15,5,19,3.75,38.46,39
+37,Giovannini,ITA,15,0,16,3.00,48.39,31
+38,Wu M.J.,CHN,14,0,9,4.67,60.87,23
+39,Juliana,KEN,13,3,24,4.33,32.50,40
+39,Bah,FRA,13,5,25,4.33,30.23,43
+40,Milenković,SRB,12,1,9,3.00,54.55,22
+41,Inoue,JPN,11,1,1,3.67,84.62,13
+42,Rotar,FRA,10,4,10,5.00,41.67,24
+43,Lozo,SRB,9,1,6,2.25,56.25,16
+44,Gelin,FRA,8,0,6,2.67,57.14,14
+45,Bergmann,BRA,7,0,4,1.40,63.64,11
+46,Buijs,NED,6,0,2,3.00,75.00,8
+47,Kasaya,KEN,5,2,14,1.67,23.81,21
+47,Natinha,BRA,5,0,8,1.67,38.46,13
+48,Yuan X.Y.,CHN,4,0,3,1.00,57.14,7
+49,Stenzel,POL,3,1,2,1.50,50.00,6
+49,Washington,USA,3,0,3,0.50,50.00,6
+50,Jineiry,DOM,2,0,2,0.50,50.00,4
+50,Ogbogu,USA,2,0,0,0.33,100.00,2
+50,Wang Y.Y.,CHN,2,0,1,0.50,66.67,3
+51,Araki,JPN,1,0,0,0.33,100.00,1
+51,Yamada,JPN,1,0,0,0.33,100.00,1
+51,Erdem,TUR,1,1,0,0.17,50.00,2
+51,Vargas,TUR,1,0,0,0.17,100.00,1
+51,Plak,NED,1,0,0,0.33,100.00,1
+51,Thaisa,BRA,1,0,1,0.17,50.00,2
+51,Trizah,KEN,1,0,0,0.33,100.00,1
+51,Diana,BRA,1,0,0,1.00,100.00,1
+51,Bauer,FRA,1,0,0,0.50,100.00,1
+51,Olinga Andela,FRA,1,0,0,0.50,100.00,1
+51,Popović M.,SRB,1,0,1,0.50,50.00,2
+52,Orro,ITA,0,0,5,0.00,0.00,5
+52,Cambi,ITA,0,0,0,,,0
+52,Egonu,ITA,0,0,0,,,0
+52,Antropova,ITA,0,0,0,,,0
+52,Danesi,ITA,0,1,1,0.00,0.00,2
+52,Fahr,ITA,0,2,1,0.00,0.00,3
+52,Ariana,DOM,0,1,0,0.00,0.00,1
+52,Arias,DOM,0,0,1,0.00,0.00,1
+52,Gaila,DOM,0,0,1,0.00,0.00,1
+52,Guillen,DOM,0,1,1,0.00,0.00,2
+52,Marte,DOM,0,0,0,,,0
+52,Tapia,DOM,0,0,0,,,0
+52,Lubian,ITA,0,0,0,,,0
+52,Omoruyi,ITA,0,0,1,0.00,0.00,1
+52,Gonzalez,DOM,0,0,0,,,0
+52,Jurczyk,POL,0,0,0,,,0
+52,Korneluk,POL,0,1,0,0.00,0.00,1
+52,Stysiak,POL,0,0,0,,,0
+52,Wołosz,POL,0,0,0,,,0
+52,Iwasaki,JPN,0,0,1,0.00,0.00,1
+52,Airi,JPN,0,0,0,,,0
+52,Fukudome,JPN,0,0,0,,,0
+52,Smarzek,POL,0,0,0,,,0
+52,Wenerska,POL,0,0,0,,,0
+52,Wada,JPN,0,0,0,,,0
+52,Seki,JPN,0,0,0,,,0
+52,Alagierska,POL,0,0,0,,,0
+52,Özbay,TUR,0,0,0,,,0
+52,E. Şahin,TUR,0,2,1,0.00,0.00,3
+52,Kalaç,TUR,0,0,1,0.00,0.00,1
+52,Van Aalen,NED,0,0,0,,,0
+52,Lohuis,NED,0,0,0,,,0
+52,Bongaerts,NED,0,0,0,,,0
+52,Baijens,NED,0,0,1,0.00,0.00,1
+52,Dambrink,NED,0,0,0,,,0
+52,Timmerman,NED,0,0,0,,,0
+52,Arıcı,TUR,0,0,0,,,0
+52,Carol,BRA,0,1,0,0.00,0.00,1
+52,Macris,BRA,0,0,0,,,0
+52,Rosamaria,BRA,0,0,1,0.00,0.00,1
+52,Roberta,BRA,0,0,0,,,0
+52,Tainara,BRA,0,0,0,,,0
+52,Pamella,KEN,0,0,0,,,0
+52,Mutinda,KEN,0,0,0,,,0
+52,Lorine,KEN,0,0,0,,,0
+52,Belinda,KEN,0,0,1,0.00,0.00,1
+52,Emma,KEN,0,0,0,,,0
+52,Simiyu,KEN,0,0,0,,,0
+52,Wisah,KEN,0,0,1,0.00,0.00,1
+52,Lorenne,BRA,0,0,0,,,0
+52,Carlini,USA,0,0,0,,,0
+52,Drews,USA,0,0,0,,,0
+52,Poulter,USA,0,0,1,0.00,0.00,1
+52,Thompson,USA,0,0,0,,,0
+52,Diao L.Y.,CHN,0,0,0,,,0
+52,Ding X.,CHN,0,0,0,,,0
+52,Gao Y.,CHN,0,0,0,,,0
+52,Rettke,USA,0,0,0,,,0
+52,Zhang C.N.,CHN,0,0,0,,,0
+52,Zheng Y.X.,CHN,0,0,0,,,0
+52,Sylves,FRA,0,0,2,0.00,0.00,2
+52,Stojiljkovic,FRA,0,0,2,0.00,0.00,2
+52,Gicquel,FRA,0,0,1,0.00,0.00,1
+52,Aleksić,SRB,0,1,1,0.00,0.00,2
+52,Bošković,SRB,0,0,0,,,0
+52,Kurtagić,SRB,0,0,1,0.00,0.00,1
+52,Ognjenović,SRB,0,1,0,0.00,0.00,1
+52,Ndiaye,FRA,0,0,0,,,0
+52,Drča,SRB,0,0,0,,,0
+52,Respaut,FRA,0,0,0,,,0
+52,Stevanović,SRB,0,0,0,,,0
+52,Hancock,USA,0,0,0,,,0
+52,Güneş,TUR,0,0,1,0.00,0.00,1
+52,Spirito,ITA,0,0,0,,,0

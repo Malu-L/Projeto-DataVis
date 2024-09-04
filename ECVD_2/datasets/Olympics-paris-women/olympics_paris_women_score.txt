@@ -1,0 +1,150 @@
+Rank-scores,Player-Name,Team,Points,Attack-Points,Block-Points,Serve-Points
+1,Vargas,TUR,159,145,8,6
+2,Egonu,ITA,110,95,8,7
+2,Gabi,BRA,110,97,11,2
+3,Bošković,SRB,103,93,5,5
+4,Drews,USA,97,90,5,2
+5,Li Y.Y.,CHN,93,80,6,7
+6,Ana Cristina,BRA,82,67,9,6
+7,Rosamaria,BRA,75,64,7,4
+8,A. Skinner,USA,72,64,5,3
+8,Plummer,USA,72,57,9,6
+9,Thaisa,BRA,61,38,20,3
+10,Sylla,ITA,60,54,3,3
+10,Peña Isabel,DOM,60,55,2,3
+10,Ogbogu,USA,60,35,21,4
+11,Erdem,TUR,58,42,14,2
+11,Gong X.Y.,CHN,58,52,5,1
+12,Zhu T.,CHN,55,49,6,0
+13,Antropova,ITA,54,45,5,4
+14,Koga,JPN,52,47,3,2
+15,Stysiak,POL,48,41,6,1
+16,Korneluk,POL,47,25,19,3
+16,Carol,BRA,47,20,23,4
+16,Washington,USA,47,28,13,6
+17,Baladın,TUR,46,37,5,4
+18,Danesi,ITA,43,21,20,2
+18,Jineiry,DOM,43,29,12,2
+19,Martinez,DOM,41,37,2,2
+20,Daalderop,NED,40,35,2,3
+21,Yuan X.Y.,CHN,39,25,12,2
+21,Wang Y.Y.,CHN,39,25,13,1
+22,Uzelac,SRB,38,31,4,3
+23,Fahr,ITA,36,28,6,2
+24,Adhiambo,KEN,34,30,2,2
+25,Bosetti,ITA,33,24,6,3
+25,Łukasik,POL,33,27,5,1
+25,Mędrzyk,POL,33,29,3,1
+25,Plak,NED,33,27,4,2
+25,Baijens,NED,33,24,7,2
+25,Cebecioğlu,TUR,33,29,1,3
+25,Aleksić,SRB,33,17,13,3
+26,Gaila,DOM,32,30,2,0
+26,Thompson,USA,32,29,3,0
+27,Ishikawa,JPN,29,28,0,1
+28,Bah,FRA,28,25,1,2
+29,Sylves,FRA,26,19,6,1
+29,Gicquel,FRA,26,20,5,1
+29,Güneş,TUR,26,12,11,3
+30,Knollema,NED,25,22,2,1
+31,Karakurt,TUR,24,20,1,3
+31,Lohuis,NED,24,14,7,3
+32,Pamella,KEN,23,21,2,0
+32,Buša,SRB,23,16,3,4
+33,Diken,TUR,21,17,3,1
+34,Arias,DOM,20,9,10,1
+34,Wada,JPN,20,20,0,0
+34,Czyrniańska,POL,20,16,2,2
+35,Smarzek,POL,19,15,4,0
+35,Rotar,FRA,19,16,3,0
+36,Hayashi,JPN,18,17,1,0
+36,E. Şahin,TUR,18,10,5,3
+37,Yamada,JPN,17,10,5,2
+37,Cazaute,FRA,17,16,0,1
+37,Lazović,SRB,17,12,2,3
+38,De La Cruz,DOM,15,12,1,2
+38,Jurczyk,POL,15,12,2,1
+38,Larson,USA,15,13,2,0
+39,Belinda,KEN,14,10,4,0
+39,Poulter,USA,14,2,6,6
+40,Orro,ITA,13,3,6,4
+40,Kalaç,TUR,13,6,5,2
+40,Dambrink,NED,13,10,2,1
+41,Tapia,DOM,12,10,2,0
+41,Inoue,JPN,12,12,0,0
+41,Aydın,TUR,12,12,0,0
+41,Diao L.Y.,CHN,12,4,4,4
+41,Lozo,SRB,12,11,1,0
+42,Tainara,BRA,11,8,3,0
+42,Trizah,KEN,11,10,0,1
+42,Stevanović,SRB,11,8,3,0
+43,Giovannini,ITA,10,8,0,2
+44,M. Jasper,NED,9,8,1,0
+44,Bauer,FRA,9,7,2,0
+44,Kurtagić,SRB,9,2,6,1
+45,Wołosz,POL,8,2,2,4
+45,Airi,JPN,8,4,2,2
+45,Ognjenović,SRB,8,7,0,1
+46,Araki,JPN,7,5,1,1
+46,Alagierska,POL,7,4,2,1
+46,Roberta,BRA,7,1,2,4
+46,Kasaya,KEN,7,7,0,0
+46,Juliana,KEN,7,6,1,0
+46,Cook,USA,7,6,1,0
+46,Wu M.J.,CHN,7,6,0,1
+46,Popović M.,SRB,7,5,2,0
+47,Guillen,DOM,5,4,0,1
+47,Marte,DOM,5,1,1,3
+47,Bongaerts,NED,5,2,2,1
+47,Buijs,NED,5,4,1,0
+47,Bergmann,BRA,5,4,0,1
+47,Wisah,KEN,5,5,0,0
+47,Olinga Andela,FRA,5,3,2,0
+47,Ndiaye,FRA,5,3,1,1
+48,Drča,SRB,4,2,0,2
+49,Iwasaki,JPN,3,1,0,2
+49,Macris,BRA,3,1,1,1
+49,Diana,BRA,3,0,3,0
+50,Gonzalez,DOM,2,1,1,0
+50,Van Aalen,NED,2,2,0,0
+50,Timmerman,NED,2,2,0,0
+50,Mutinda,KEN,2,0,0,2
+50,Simiyu,KEN,2,1,1,0
+50,Stojiljkovic,FRA,2,2,0,0
+51,Lubian,ITA,1,0,0,1
+51,Omoruyi,ITA,1,1,0,0
+51,Wenerska,POL,1,1,0,0
+51,Seki,JPN,1,1,0,0
+51,Özbay,TUR,1,0,1,0
+51,Gao Y.,CHN,1,0,1,0
+51,Zheng Y.X.,CHN,1,0,1,0
+51,Milenković,SRB,1,1,0,0
+51,Hancock,USA,1,0,0,1
+52,Cambi,ITA,0,0,0,0
+52,De Gennaro,ITA,0,0,0,0
+52,Ariana,DOM,0,0,0,0
+52,Castillo,DOM,0,0,0,0
+52,Szczygłowska,POL,0,0,0,0
+52,Kojima,JPN,0,0,0,0
+52,Fukudome,JPN,0,0,0,0
+52,Stenzel,POL,0,0,0,0
+52,Örge,TUR,0,0,0,0
+52,Reesink,NED,0,0,0,0
+52,Arıcı,TUR,0,0,0,0
+52,Nyeme,BRA,0,0,0,0
+52,Kundu,KEN,0,0,0,0
+52,Lorine,KEN,0,0,0,0
+52,Emma,KEN,0,0,0,0
+52,Lorenne,BRA,0,0,0,0
+52,Carlini,USA,0,0,0,0
+52,Wong-Orantes,USA,0,0,0,0
+52,Wang M.J.,CHN,0,0,0,0
+52,Ding X.,CHN,0,0,0,0
+52,Rettke,USA,0,0,0,0
+52,Zhang C.N.,CHN,0,0,0,0
+52,Gelin,FRA,0,0,0,0
+52,Giardino,FRA,0,0,0,0
+52,Popović S.,SRB,0,0,0,0
+52,Respaut,FRA,0,0,0,0
+52,Spirito,ITA,0,0,0,0
+52,Natinha,BRA,0,0,0,0

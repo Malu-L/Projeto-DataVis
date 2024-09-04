@@ -1,0 +1,147 @@
+Rank-setter,Player-Name,Team,Successful-setter,Errors-setter,Attempts-setter,average-per-match-setter,Success-percent-setter,Total-setter
+1,Sekita,JPN,216,2,191,54.00,52.81,409
+2,Christenson,USA,210,2,270,35.00,43.57,482
+3,Brizard,FRA,171,2,244,28.50,41.01,417
+4,Kampa,GER,152,1,122,38.00,55.27,275
+5,Janusz,POL,150,0,278,25.00,35.05,428
+6,Giannelli,ITA,133,2,327,22.17,28.79,462
+6,Ropret,SLO,133,0,211,33.25,38.66,344
+7,Herr,CAN,94,2,117,31.33,44.13,213
+8,Bruno,BRA,91,0,136,22.75,40.09,227
+9,De Cecco,ARG,72,2,107,24.00,39.78,181
+10,Todorović,SRB,71,1,76,23.67,47.97,148
+11,Jovović,SRB,56,4,53,18.67,49.56,113
+12,Tille,GER,33,1,39,8.25,45.21,73
+13,Fernando,BRA,31,1,106,7.75,22.46,138
+14,Youssef,EGY,27,1,69,9.00,27.84,97
+14,Toniutti,FRA,27,0,35,4.50,43.55,62
+15,Łomacz,POL,24,0,45,6.00,34.78,69
+16,M. Gaber,EGY,21,1,52,7.00,28.38,74
+17,Sanchez Pages,ARG,14,0,8,4.67,63.64,22
+18,Walsh,CAN,13,1,11,13.00,52.00,25
+19,Zenger,GER,10,1,20,2.50,32.26,31
+20,Ran,JPN,7,0,16,1.75,30.43,23
+20,Ishikawa,JPN,7,1,12,1.75,35.00,20
+21,Schott,GER,3,0,3,0.75,50.00,6
+21,Grebennikov,FRA,3,0,32,0.50,8.57,35
+21,Čebulj,SLO,3,0,26,0.75,10.34,29
+22,Yamamoto,JPN,2,0,10,0.50,16.67,12
+22,Onodera,JPN,2,2,1,0.50,40.00,5
+22,Yamauchi,JPN,2,1,2,0.50,40.00,5
+22,Grozer,GER,2,0,8,0.50,20.00,10
+22,Reichert,GER,2,0,10,0.50,16.67,12
+22,Sbertoli,ITA,2,0,5,0.40,28.57,7
+22,Leon,POL,2,0,19,0.33,9.52,21
+22,Chinenyeze,FRA,2,0,2,0.33,50.00,4
+22,Ngapeth,FRA,2,1,33,0.33,5.56,36
+22,Kovačič,SLO,2,3,23,0.50,7.14,28
+22,Maar,CAN,2,0,3,0.67,40.00,5
+23,Miyaura,JPN,1,0,0,0.25,100.00,1
+23,Nishida,JPN,1,0,4,0.25,20.00,5
+23,Russo,ITA,1,0,7,0.17,12.50,8
+23,Balaso,ITA,1,0,41,0.17,2.38,42
+23,Thales,BRA,1,0,19,0.25,5.00,20
+23,Zatorski,POL,1,1,30,0.17,3.12,32
+23,Russell,USA,1,0,16,0.17,5.88,17
+23,E. Shoji,USA,1,1,36,0.17,2.63,38
+23,Danani,ARG,1,0,8,0.33,11.11,9
+23,Le Goff,FRA,1,0,5,0.17,16.67,6
+23,Patry,FRA,1,0,10,0.17,9.09,11
+23,Kapur,SRB,1,0,15,0.33,6.25,16
+23,Kovačević,SRB,1,0,2,0.50,33.33,3
+23,Krsmanović,SRB,1,0,1,0.33,50.00,2
+23,Urnaut,SLO,1,1,21,0.25,4.35,23
+23,Szwarc,CAN,1,1,8,0.33,10.00,10
+23,Loeppky,CAN,1,1,21,0.33,4.35,23
+24,Otsuka,JPN,0,0,1,0.00,0.00,1
+24,Krick,GER,0,0,2,0.00,0.00,2
+24,Brehme,GER,0,0,2,0.00,0.00,2
+24,Maase,GER,0,0,0,,,0
+24,Brand,GER,0,0,0,,,0
+24,Kai,JPN,0,0,0,,,0
+24,Karlitzek,GER,0,0,7,0.00,0.00,7
+24,Fukatsu,JPN,0,0,5,0.00,0.00,5
+24,Kentaro,JPN,0,0,0,,,0
+24,Fromm,GER,0,0,0,,,0
+24,Michieletto,ITA,0,1,14,0.00,0.00,15
+24,Lavia,ITA,0,0,22,0.00,0.00,22
+24,Galassi,ITA,0,0,5,0.00,0.00,5
+24,Romanò,ITA,0,0,6,0.00,0.00,6
+24,Darlan,BRA,0,0,5,0.00,0.00,5
+24,Flavio,BRA,0,0,6,0.00,0.00,6
+24,Honorato,BRA,0,0,0,,,0
+24,Lucas,BRA,0,0,3,0.00,0.00,3
+24,Lucarelli,BRA,0,0,18,0.00,0.00,18
+24,Leal,BRA,0,0,8,0.00,0.00,8
+24,Bottolo,ITA,0,0,0,,,0
+24,Porro L.,ITA,0,0,1,0.00,0.00,1
+24,Sanguinetti,ITA,0,0,0,,,0
+24,Bovolenta,ITA,0,0,0,,,0
+24,L. Bergmann,BRA,0,0,0,,,0
+24,Adriano,BRA,0,0,5,0.00,0.00,5
+24,Isac,BRA,0,0,0,,,0
+24,Bieniek,POL,0,0,3,0.00,0.00,3
+24,Fornal,POL,0,0,22,0.00,0.00,22
+24,Kaczmarek,POL,0,0,1,0.00,0.00,1
+24,Kochanowski,POL,0,0,4,0.00,0.00,4
+24,Kurek,POL,0,0,17,0.00,0.00,17
+24,Hamada,EGY,0,0,0,,,0
+24,Dola,EGY,0,0,2,0.00,0.00,2
+24,Azab,EGY,0,0,4,0.00,0.00,4
+24,Seif Abed,EGY,0,0,1,0.00,0.00,1
+24,Elhossiny,EGY,0,1,5,0.00,0.00,6
+24,M. Reda,EGY,0,0,17,0.00,0.00,17
+24,R.Haikal,EGY,0,0,3,0.00,0.00,3
+24,Asran,EGY,0,0,3,0.00,0.00,3
+24,Huber,POL,0,0,2,0.00,0.00,2
+24,Semeniuk,POL,0,0,9,0.00,0.00,9
+24,Śliwka,POL,0,0,2,0.00,0.00,2
+24,Issa,EGY,0,0,2,0.00,0.00,2
+24,A.Seoudy,EGY,0,0,1,0.00,0.00,1
+24,Anderson,USA,0,0,14,0.00,0.00,14
+24,Averill,USA,0,0,6,0.00,0.00,6
+24,Defalco,USA,0,0,19,0.00,0.00,19
+24,Holt,USA,0,0,12,0.00,0.00,12
+24,Martinez Franchi,ARG,0,0,3,0.00,0.00,3
+24,Palonsky,ARG,0,0,2,0.00,0.00,2
+24,Loser Bruno,ARG,0,0,0,,,0
+24,Lima B.,ARG,0,0,1,0.00,0.00,1
+24,Zerba,ARG,0,0,1,0.00,0.00,1
+24,Conte,ARG,0,0,15,0.00,0.00,15
+24,Kukartsev,ARG,0,0,1,0.00,0.00,1
+24,Vicentin,ARG,0,0,2,0.00,0.00,2
+24,Jendryk,USA,0,0,0,,,0
+24,Ma'a,USA,0,0,0,,,0
+24,Jaeschke,USA,0,0,2,0.00,0.00,2
+24,Muagututia,USA,0,0,0,,,0
+24,Smith,USA,0,0,0,,,0
+24,Ramos,ARG,0,0,0,,,0
+24,Clevenot,FRA,0,0,11,0.00,0.00,11
+24,Jouffroy,FRA,0,0,0,,,0
+24,Louati,FRA,0,0,7,0.00,0.00,7
+24,Atanasijević,SRB,0,0,4,0.00,0.00,4
+24,Ivović,SRB,0,0,11,0.00,0.00,11
+24,Luburić,SRB,0,0,1,0.00,0.00,1
+24,Nedeljković,SRB,0,0,0,,,0
+24,Podraščanin,SRB,0,0,5,0.00,0.00,5
+24,Kujundžić,SRB,0,0,11,0.00,0.00,11
+24,Faure,FRA,0,0,1,0.00,0.00,1
+24,Perić,SRB,0,0,0,,,0
+24,Tillie,FRA,0,0,0,,,0
+24,Pajenk,SLO,0,0,4,0.00,0.00,4
+24,Kozamernik,SLO,0,0,6,0.00,0.00,6
+24,Možič,SLO,0,0,1,0.00,0.00,1
+24,T. Štern,SLO,0,0,8,0.00,0.00,8
+24,Van Berkel,CAN,0,1,1,0.00,0.00,2
+24,Lui,CAN,0,1,10,0.00,0.00,11
+24,Hofer,CAN,0,0,0,,,0
+24,McCarthy,CAN,0,0,0,,,0
+24,Hoag,CAN,0,0,2,0.00,0.00,2
+24,Vinčić,SLO,0,0,0,,,0
+24,Štalekar,SLO,0,0,0,,,0
+24,Z. Štern,SLO,0,0,0,,,0
+24,Mujanović,SLO,0,0,0,,,0
+24,Demyanenko,CAN,0,0,0,,,0
+24,Wassenaar Ketrzynski,CAN,0,0,0,,,0
+24,Alan,BRA,0,0,1,0.00,0.00,1
+24,Bołądź,POL,0,0,0,,,0
