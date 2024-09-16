@@ -1,0 +1,147 @@
+Rank-scores,Player-Name,Team,Points,Attack-Points,Block-Points,Serve-Points
+1,Leon,POL,103,81,7,15
+2,Romanò,ITA,100,88,3,9
+3,Ngapeth,FRA,92,75,10,7
+4,Russell,USA,90,78,7,5
+5,Michieletto,ITA,89,74,8,7
+5,Anderson,USA,89,80,5,4
+6,Patry,FRA,87,73,11,3
+7,T. Štern,SLO,86,75,4,7
+8,Nishida,JPN,81,66,4,11
+9,Clevenot,FRA,80,68,10,2
+10,Grozer,GER,78,55,15,8
+10,Defalco,USA,78,67,5,6
+11,Lavia,ITA,72,57,11,4
+12,Kurek,POL,71,59,6,6
+13,Ishikawa,JPN,70,66,1,3
+14,Holt,USA,63,44,11,8
+15,Darlan,BRA,62,57,3,2
+16,Lucarelli,BRA,60,51,6,3
+17,Averill,USA,59,36,16,7
+17,Čebulj,SLO,59,50,0,9
+18,Karlitzek,GER,57,48,3,6
+19,Ran,JPN,54,45,4,5
+20,Maar,CAN,52,43,3,6
+21,Brehme,GER,51,39,11,1
+22,Kochanowski,POL,49,39,6,4
+23,Galassi,ITA,46,26,15,5
+23,Loeppky,CAN,46,40,2,4
+24,Chinenyeze,FRA,45,30,13,2
+25,Urnaut,SLO,44,39,2,3
+26,Reichert,GER,43,36,3,4
+26,Russo,ITA,43,28,14,1
+27,Huber,POL,40,25,7,8
+27,Szwarc,CAN,40,36,4,0
+28,Leal,BRA,39,33,1,5
+29,Ivović,SRB,37,31,2,4
+30,Fornal,POL,36,30,3,3
+31,Conte,ARG,35,32,2,1
+31,Le Goff,FRA,35,24,10,1
+31,Pajenk,SLO,35,19,9,7
+32,Bieniek,POL,34,23,5,6
+32,Atanasijević,SRB,34,29,0,5
+33,Krick,GER,31,24,7,0
+33,Kujundžić,SRB,31,30,1,0
+34,Lucas,BRA,29,21,6,2
+34,Kozamernik,SLO,29,19,5,5
+35,Lima B.,ARG,28,26,1,1
+36,Yamauchi,JPN,26,19,6,1
+37,Flavio,BRA,25,17,8,0
+38,Onodera,JPN,24,18,3,3
+38,Adriano,BRA,24,21,2,1
+38,Podraščanin,SRB,24,14,7,3
+39,Luburić,SRB,23,23,0,0
+40,Brizard,FRA,22,4,7,11
+41,Semeniuk,POL,21,19,1,1
+42,Giannelli,ITA,20,8,8,4
+42,Loser Bruno,ARG,20,11,6,3
+42,Van Berkel,CAN,20,16,4,0
+42,Alan,BRA,20,17,3,0
+43,Dola,EGY,18,13,3,2
+44,Jaeschke,USA,17,16,1,0
+44,Louati,FRA,17,15,1,1
+45,Azab,EGY,16,14,1,1
+46,Faure,FRA,15,12,2,1
+47,Issa,EGY,14,13,0,1
+48,R.Haikal,EGY,13,10,3,0
+48,Christenson,USA,13,8,3,2
+48,Krsmanović,SRB,13,8,4,1
+49,Kampa,GER,11,2,5,4
+49,Kentaro,JPN,11,9,2,0
+49,Možič,SLO,11,9,2,0
+49,McCarthy,CAN,11,6,4,1
+50,Elhossiny,EGY,10,8,2,0
+50,Palonsky,ARG,10,10,0,0
+50,Zerba,ARG,10,9,0,1
+51,Śliwka,POL,9,8,1,0
+51,Demyanenko,CAN,9,4,3,2
+52,Miyaura,JPN,8,7,0,1
+52,Otsuka,JPN,8,8,0,0
+52,Janusz,POL,8,0,4,4
+52,Vicentin,ARG,8,8,0,0
+53,Seif Abed,EGY,7,7,0,0
+53,Martinez Franchi,ARG,7,7,0,0
+53,De Cecco,ARG,7,3,2,2
+53,Kukartsev,ARG,7,5,2,0
+53,Jouffroy,FRA,7,1,1,5
+53,Kovačević,SRB,7,7,0,0
+53,Nedeljković,SRB,7,3,4,0
+53,Bołądź,POL,7,5,1,1
+54,Brand,GER,6,5,1,0
+54,Kaczmarek,POL,6,5,0,1
+55,A.Seoudy,EGY,5,3,2,0
+56,Maase,GER,4,3,1,0
+56,Hamada,EGY,4,3,1,0
+56,Asran,EGY,4,3,0,1
+56,Ramos,ARG,4,1,3,0
+56,Jovović,SRB,4,2,1,1
+57,Schott,GER,3,3,0,0
+57,Bruno,BRA,3,1,1,1
+57,Sanguinetti,ITA,3,2,0,1
+58,Porro L.,ITA,2,2,0,0
+58,Todorović,SRB,2,2,0,0
+58,Ropret,SLO,2,2,0,0
+58,Hoag,CAN,2,1,0,1
+58,Štalekar,SLO,2,2,0,0
+59,Sekita,JPN,1,0,1,0
+59,Tille,GER,1,1,0,0
+59,Kai,JPN,1,1,0,0
+59,Łomacz,POL,1,0,1,0
+59,M. Gaber,EGY,1,1,0,0
+60,Yamamoto,JPN,0,0,0,0
+60,Zenger,GER,0,0,0,0
+60,Fukatsu,JPN,0,0,0,0
+60,Fromm,GER,0,0,0,0
+60,Sbertoli,ITA,0,0,0,0
+60,Balaso,ITA,0,0,0,0
+60,Fernando,BRA,0,0,0,0
+60,Honorato,BRA,0,0,0,0
+60,Thales,BRA,0,0,0,0
+60,Bottolo,ITA,0,0,0,0
+60,Bovolenta,ITA,0,0,0,0
+60,L. Bergmann,BRA,0,0,0,0
+60,Isac,BRA,0,0,0,0
+60,Zatorski,POL,0,0,0,0
+60,Youssef,EGY,0,0,0,0
+60,M. Reda,EGY,0,0,0,0
+60,E. Shoji,USA,0,0,0,0
+60,Danani,ARG,0,0,0,0
+60,Sanchez Pages,ARG,0,0,0,0
+60,Jendryk,USA,0,0,0,0
+60,Ma'a,USA,0,0,0,0
+60,Muagututia,USA,0,0,0,0
+60,Smith,USA,0,0,0,0
+60,Grebennikov,FRA,0,0,0,0
+60,Toniutti,FRA,0,0,0,0
+60,Kapur,SRB,0,0,0,0
+60,Perić,SRB,0,0,0,0
+60,Tillie,FRA,0,0,0,0
+60,Kovačič,SLO,0,0,0,0
+60,Lui,CAN,0,0,0,0
+60,Hofer,CAN,0,0,0,0
+60,Herr,CAN,0,0,0,0
+60,Vinčić,SLO,0,0,0,0
+60,Z. Štern,SLO,0,0,0,0
+60,Mujanović,SLO,0,0,0,0
+60,Walsh,CAN,0,0,0,0
+60,Wassenaar Ketrzynski,CAN,0,0,0,0
