@@ -64,11 +64,19 @@ app.layout = html.Div([
         # Graph to show the pie chart
         dcc.Graph(id='pie_chart')
     ]),
+    html.Div([
+        # Graph to show the scatter chart by country
+        dcc.Graph(id='scatter_chart_country')
+    ]),
+    html.Div([
+        # Graph to show the scatter chart
+        dcc.Graph(id='points_acc_chart_country')
+    ]),
+    html.Div([
+        # Graph to show the scatter chart
+        dcc.Graph(id='points_err_chart_country')
+    ]),
     # ---------------- Divs all countries: PS - Ainda tentar fazer por país ----------------
-    # html.Div([
-    #     # Graph to show the scatter chart
-    #     dcc.Graph(id='scatter_chart')
-    # ]),
     # html.Div([
     #     # Graph to show the stacked bars chart
     #     dcc.Graph(id='scatter_chart_attacks_blocks')
@@ -269,12 +277,12 @@ def set_country_value(available_options):
     Input("country", "value"),
     Input("generos-radio", "value")
 )
-def generate_pie_chart(country, selected_genero):
-    if not country:
+def generate_pie_chart_country(selected_country, selected_genero):
+    if not selected_country:
         return go.Figure()
     df, _ = return_df_genero(selected_genero)
 
-    df = df[(df['Team'] == country)]
+    df = df[(df['Team'] == selected_country)]
 
     labels = ['Ataque', 'Bloqueio', 'Saque']
     sizes = [
@@ -302,6 +310,67 @@ def generate_pie_chart(country, selected_genero):
     
     return fig
 
+# Callback to update the scatter chart based on the selected genre
+@app.callback(
+    Output("scatter_chart_country", "figure"),
+    Input("generos-radio", "value"),
+    Input("country", "value")
+)
+def generate_scatter_chart_country(selected_genero, selected_country):
+    if not selected_country:
+        return go.Figure()
+    df, _ = return_df_genero(selected_genero)
+
+    df = df[(df['Team'] == selected_country)]
+    df = df[
+    (df['Points-attacks'] > 0) |
+    (df["Succesful-receive"] > 0) |
+    (df["Successful-setter"] > 0)]
+
+    # Create figure
+    markers = ['circle', 'triangle-up', 'star', 'triangle-down', 'square', 'x', 'diamond']
+    
+    fig = go.Figure()
+
+    # Ataques
+    fig.add_trace(go.Scatter(
+        x=df['Attempts-shots-attack'],
+        y=df['Points-attacks'],
+        mode='markers',
+        name='Ataques',
+        marker=dict(symbol=markers[0], size=8, color='blue', line=dict(width=2, color='black'))
+    ))
+
+    # Recepções
+    fig.add_trace(go.Scatter(
+        x=df['Attemps-receive'],
+        y=df['Succesful-receive'],
+        mode='markers',
+        name='Recepções',
+        marker=dict(symbol=markers[1], size=8, color='green', line=dict(width=2, color='black'))
+    ))
+
+    # Levantamentos
+    fig.add_trace(go.Scatter(
+        x=df['Attempts-setter'],
+        y=df['Successful-setter'],
+        mode='markers',
+        name='Levantamentos',
+        marker=dict(symbol=markers[5], size=8, color='red', line=dict(width=1, color='black'))
+    ))
+
+    # Update layout
+    fig.update_layout(
+        title='Correlação entre Tentativas e Sucessos de um País',
+        title_x=0.5,
+        xaxis_title='Número de Tentativas',
+        yaxis_title='Número de Sucessos',
+        legend_title='Categorias',
+        template='plotly_white'
+    )
+
+    return fig
+
 # Callback to update the scatter chart of attack X block based on the selected genre and team
 @app.callback(
     Output("scatter_chart_attacks_blocks", "figure"),
@@ -310,6 +379,158 @@ def generate_pie_chart(country, selected_genero):
 )
 def generate_scatter_attacks_blocks(selected_genero, selected_country):
     fig = go.Figure()
+
+    return fig
+
+# Callback to update the acumulative chart of points based on the selected genre and team
+@app.callback(
+    Output("points_acc_chart_country", "figure"),
+    Input("generos-radio", "value"),
+    Input("country", "value")
+)
+def generate_acc_chart_country(selected_genero, selected_country):
+    df, _ = return_df_genero(selected_genero)
+
+    pontos_recepcao = df[df['Team'] == selected_country].groupby('Player-Name')['Succesful-blocks'].sum()
+    pontos_ataque = df[df['Team'] == selected_country].groupby('Player-Name')['Points-attacks'].sum()
+    pontos_saque = df[df['Team'] == selected_country].groupby('Player-Name')['serve-points'].sum()
+
+    pontos_totais = pd.DataFrame({
+    'Pontos Recepcao': pontos_recepcao,
+    'Pontos Ataque': pontos_ataque,
+    'Pontos Saque': pontos_saque
+    }).fillna(0)
+
+    pontos_totais['Total Pontos'] = pontos_totais.sum(axis=1)
+    pontos_totais = pontos_totais.sort_values(by='Total Pontos', ascending=False)
+    pontos_totais['Cumulativo'] = pontos_totais['Total Pontos'].cumsum() / pontos_totais['Total Pontos'].sum() * 100
+
+    fig = go.Figure()
+
+    # Add bar trace for total points
+    fig.add_trace(go.Bar(
+        x=pontos_totais.index,
+        y=pontos_totais['Total Pontos'],
+        name='Total de Pontos',
+        marker_color='#0095CC',
+        marker_line=dict(width=2.5, color='black'),
+        yaxis='y1'
+    ))
+
+    # Add line trace for cumulative percentage
+    fig.add_trace(go.Scatter(
+        x=pontos_totais.index,
+        y=pontos_totais['Cumulativo'],
+        name='Cumulativo (%)',
+        mode='lines+markers',
+        marker=dict(symbol='circle', size=8, color='green', line=dict(width=2, color='black')),
+        yaxis='y2'
+    ))
+
+    # Update layout
+    fig.update_layout(
+        title='Análise Acumulativa de Pontos por Jogador',
+        xaxis_title='Jogador',
+        yaxis=dict(
+            title='Total de Pontos',
+            side='left',
+            showgrid=False,
+            showline=True,
+            ticks="outside",
+            titlefont=dict(color="#1f77b4"),
+            tickfont=dict(color="#1f77b4")
+        ),
+        yaxis2=dict(
+            title='Porcentagem Cumulativa (%)',
+            overlaying='y',
+            side='right',
+            showgrid=False,
+            showline=True,
+            range=[0, 110],
+            ticks="outside",
+            titlefont=dict(color="green"),
+            tickfont=dict(color="green")
+        ),
+        legend=dict(x=0.01, y=0.99, bgcolor='rgba(255,255,255,0.5)'),
+        xaxis=dict(tickangle=90),
+        template='plotly_white'
+    )
+
+    return fig
+
+# Callback to update the acumulative chart of errors based on the selected genre and team
+@app.callback(
+    Output("points_err_chart_country", "figure"),
+    Input("generos-radio", "value"),
+    Input("country", "value")
+)
+def generate_err_chart_country(selected_genero, selected_country):
+    df, _ = return_df_genero(selected_genero)
+
+    erros_recepcao = df[df['Team'] == selected_country].groupby('Player-Name')['Errors-receive'].sum()
+    erros_ataque = df[df['Team'] == selected_country].groupby('Player-Name')['Errors-attack'].sum()
+    erros_saque = df[df['Team'] == selected_country].groupby('Player-Name')['Errors-serve'].sum()
+
+    erros_totais = pd.DataFrame({
+    'Erros Recepcao': erros_recepcao,
+    'Erros Ataque': erros_ataque,
+    'Erros Saque': erros_saque
+    }).fillna(0)
+
+    erros_totais['Total de Erros'] = erros_totais.sum(axis=1)
+    erros_totais = erros_totais.sort_values(by='Total de Erros', ascending=False)
+    erros_totais['Cumulativo'] = erros_totais['Total de Erros'].cumsum() / erros_totais['Total de Erros'].sum() * 100
+
+    fig = go.Figure()
+
+    # Add bar trace for total points
+    fig.add_trace(go.Bar(
+        x=erros_totais.index,
+        y=erros_totais['Total de Erros'],
+        name='Total de Erros',
+        marker_color='#0095CC',
+        marker_line=dict(width=2.5, color='black'),
+        yaxis='y1'
+    ))
+
+    # Add line trace for cumulative percentage
+    fig.add_trace(go.Scatter(
+        x=erros_totais.index,
+        y=erros_totais['Cumulativo'],
+        name='Cumulativo (%)',
+        mode='lines+markers',
+        marker=dict(symbol='circle', size=8, color='red', line=dict(width=2, color='black')),
+        yaxis='y2'
+    ))
+
+    # Update layout
+    fig.update_layout(
+        title='Análise Acumulativa de Erros por Jogador',
+        xaxis_title='Jogador',
+        yaxis=dict(
+            title='Total de Erros',
+            side='left',
+            showgrid=False,
+            showline=True,
+            ticks="outside",
+            titlefont=dict(color="#0095CC"),
+            tickfont=dict(color="#0095CC")
+        ),
+        yaxis2=dict(
+            title='Porcentagem Cumulativa (%)',
+            overlaying='y',
+            side='right',
+            showgrid=False,
+            showline=True,
+            range=[0, 110],
+            ticks="outside",
+            titlefont=dict(color="red"),
+            tickfont=dict(color="red")
+        ),
+        legend=dict(x=0.01, y=0.99, bgcolor='rgba(255,255,255,0.5)'),
+        xaxis=dict(tickangle=90),
+        template='plotly_white'
+    )
 
     return fig
 
