@@ -29,6 +29,71 @@ app = Dash(__name__)
 # Defining the layout of the app
 app.layout = html.Div([
     # Title of the app
+    html.H1(children='Dados de Vôlei nas Olimpíadas de Paris', style={'bold': 'True', 'color': '#153f5c', 'text-align': 'center'}),
+    
+    # Radio button to select the genre
+    dcc.RadioItems(
+        all_generos, # List of all options
+        'Feminino e Masculino', # Default Button
+        id='generos-radio', # ID of the radio button
+        inline=True,
+        style={'display': 'flex', 'gap': '10px', 'color': '#153f5c', 'align-items': 'center', 'justify-content': 'center'}
+    ),
+    html.Div([
+        html.Div([
+            html.H2(children = "Todos Os Países", style={'text-align': 'center', 'color': '#153f5c'}),
+            html.Div([
+                # Graph to show the pie chart
+                dcc.Graph(id='pie_chart_all_countries', style={'flex': '1'}),
+                # Graph to show the scatter chart
+                dcc.Graph(id='scatter_chart', style={'flex': '1'}),
+            ], style={'display': 'flex'}),
+            html.Div([
+                # Graph to show the stacked bars chart
+                dcc.Graph(id='scatter_chart_attacks_blocks', style={'flex': '1'})
+            ], style={'display': 'flex'}),
+            # Graph to show the stacked bars chart
+            dcc.Graph(id='stacked_bars_chart', style={'flex': '1'})
+        ], style={'flex': '1', 'border-width': '1px','border-style': 'solid', 'border-color': 'black', "border-radius": "10px",
+                    "margin-right": "20px"}),
+        html.Div([
+            html.Div([
+                html.H2(children = "Por País", style={'text-align': 'center', 'color': '#153f5c'}),
+                # Dropdown to select the country (The options of countries will be based on the selected genre)
+                dcc.Dropdown(
+                    id="country"
+                ),
+                html.Div([
+                    # Graph to show the pie chart
+                    dcc.Graph(id='pie_chart', style={'flex': '1'}),
+                    # Graph to show the scatter chart by country
+                    dcc.Graph(id='scatter_chart_country', style={'flex': '1'})
+                ], style={'display': 'flex'}),
+                html.Div([
+                    # Graph to show the acumulative chart of points
+                    dcc.Graph(id='points_acc_chart_country', style={'flex': '1'}),
+                    # Graph to show the acumulative chart of errors
+                    dcc.Graph(id='points_err_chart_country', style={'flex': '1'})
+                ], style={'display': 'flex'})
+            ], style={'border-width': '1px','border-style': 'solid', 'border-color': 'black', "border-radius": "10px"}),
+            html.Div([
+                html.H2(children = "Por Jogador", style = {'text-align': 'center', 'color': '#153f5c'}),
+                # Dropdown to select the player (The options of players will be based on the selected genre and country)
+                dcc.Dropdown(
+                    id="player"
+                ),
+                # Graph to show the player statistics
+                dcc.Graph(id='players_chart')
+            ], style={'border-width': '1px','border-style': 'solid', 'border-color': 'black', "border-radius": "10px",
+                      'margin-top': '8px'}),
+        ], style={'flex': '1'}),
+    ], style={'display': 'flex', 'flex': '1', 'margin': '15px'}),
+])
+
+"""
+# Defining the layout of the app
+app.layout = html.Div([
+    # Title of the app
     html.H1(children='Dados de Vôlei nas Olimpíadas de Paris', style={'color': '#117029'}),
     # Radio button to select the genre
     dcc.RadioItems(
@@ -92,7 +157,7 @@ app.layout = html.Div([
         dcc.Graph(id='players_chart')
     ]),
 ])
-
+"""
 # Callback to update the pie chart of all countries
 @app.callback(
     Output("pie_chart_all_countries", "figure"),
@@ -121,7 +186,7 @@ def generate_pie_chart_all_countries(selected_genero):
     # Update the layout
     fig.update_layout(
         showlegend=True,
-        title = "Distribuição de Pontos por Categoria de todos os Países",
+        title = "Distribuição de Pontos por Categoria",
         title_x=0.5
     )
     
@@ -186,9 +251,9 @@ def generate_stacked_bars(selected_genero):
     fig.add_annotation(
         text="*Sucesso: Desencadeou ou Impediu ponto",
         xref="paper", yref="paper",
-        x=1.5, y=0.53,
+        x=1.4, y=0.53,
         showarrow=False,
-        font=dict(size=12)
+        font=dict(size=10)
     )
 
     return fig
@@ -239,7 +304,7 @@ def generate_scatter_chart(selected_genero):
 
     # Update layout
     fig.update_layout(
-        title='Correlação entre Tentativas e Sucessos de todos os Países',
+        title='Correlação entre Tentativas e Sucessos',
         title_x=0.5,
         xaxis_title='Número de Tentativas',
         yaxis_title='Número de Sucessos',
