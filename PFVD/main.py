@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 from readfile import *
 
 COLOR_GRAPH_BACKGROUND = "#222e3a"
-FONT_CONST = "Arial"
+FONT_CONST = "Arial" # Font in Graphs
 
 # List of all aptions for the radio button
 all_generos = ['Feminino', 'Masculino', 'Feminino e Masculino']
