@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from readfile import *
 
 COLOR_GRAPH_BACKGROUND = "#222e3a"
+FONT_CONST = "Arial"
 
 # List of all aptions for the radio button
 all_generos = ['Feminino', 'Masculino', 'Feminino e Masculino']
@@ -127,7 +128,7 @@ def generate_pie_chart_all_countries(selected_genero):
             text='Distribuição de Pontos por Categoria',
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=15,
                 color="white"
             )
@@ -188,7 +189,7 @@ def generate_scatter_chart_all_countries(selected_genero):
             text='Correlação entre Tentativas e Sucessos',
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=15,
                 color="white"
             )
@@ -242,7 +243,7 @@ def generate_scatter_attacks_blocks(selected_genero):
             text='Bloqueios bem-sucedidos vs. Tentativas de Ataque',
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=15,
                 color="white"
             )
@@ -320,7 +321,7 @@ def generate_stacked_bars(selected_genero):
             text='Comparação de Países por Métricas',
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=15,
                 color="white"
             )
@@ -411,7 +412,7 @@ def generate_pie_chart_country(selected_country, selected_genero):
             text='Distribuição de Pontos por Categoria de um País',
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=15,
                 color="white"
             )
@@ -478,7 +479,7 @@ def generate_scatter_chart_country(selected_genero, selected_country):
             text='Correlação entre Tentativas e Sucessos de um País',
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=15,
                 color="white"
             )
@@ -537,7 +538,7 @@ def generate_scatter_attacks_blocks_per_country(selected_genero, selected_countr
             text=f'Bloqueios bem-sucedidos vs. Tentativas de Ataque de {selected_country}',
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=15,
                 color="white"
             )
@@ -613,7 +614,7 @@ def generate_acc_chart_country(selected_genero, selected_country):
             text="Análise Acumulativa de Pontos por Jogador",
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=15,
                 color="white"
             )
@@ -703,7 +704,7 @@ def generate_err_chart_country(selected_genero, selected_country):
             text="Análise Acumulativa de Erros por Jogador",
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=15,
                 color="white"
             )
@@ -813,7 +814,7 @@ def generate_player_statistics(player, selected_genero):
             ticklen=1,
             tickcolor="white",
             tickfont=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=20,
                 color="white"
             ),
@@ -832,7 +833,7 @@ def generate_player_statistics(player, selected_genero):
             text="Estatísticas do Jogador",
             x=0.5,
             font=dict(
-                family="Arial",
+                family=FONT_CONST,
                 size=20,
                 color="white"
             )
