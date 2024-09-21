@@ -4,6 +4,108 @@ import plotly.express as px
 import plotly.graph_objects as go
 from readfile import *
 
+
+def radar_factory(num_vars, frame='polygon'):
+    """Create a radar chart with `num_vars` axes.
+
+    This function creates a RadarAxes projection and registers it.
+
+    Parameters
+    ----------
+    num_vars : int
+        Number of variables for radar chart.
+    frame : {'circle' | 'polygon'}
+        Shape of frame surrounding axes.
+
+    """
+    # calculate evenly-spaced axis angles
+    theta = np.linspace(0, 2*np.pi, num_vars, endpoint=False)
+    theta = np.concatenate((theta, [theta[0]]))  # Close the loop
+    
+    class RadarTransform(PolarAxes.PolarTransform):
+        def transform_path_non_affine(self, path):
+            # Paths with non-unit interpolation steps correspond to gridlines,
+            # in which case we force interpolation (to defeat PolarTransform's
+            # autoconversion to circular arcs).
+            if path._interpolation_steps > 1:
+                path = path.interpolated(num_vars)
+            return Path(self.transform(path.vertices), path.codes)
+
+    class RadarAxes(PolarAxes):
+
+        name = 'radar'
+        
+        PolarTransform = RadarTransform
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            # rotate plot such that the first axis is at the top
+            self.set_theta_zero_location('N')
+
+        def fill(self, *args, closed=True, **kwargs):
+            """Override fill so that line is closed by default"""
+            return super().fill(closed=closed, *args, **kwargs)
+
+        def plot(self, *args, **kwargs):
+            """Override plot so that line is closed by default"""
+            lines = super().plot(*args, **kwargs)
+            for line in lines:
+                self._close_line(line)
+
+        def _close_line(self, line):
+            x, y = line.get_data()
+            # FIXME: markers at x[0], y[0] get doubled-up
+            if x[0] != x[-1]:
+                x = np.concatenate((x, [x[0]]))
+                y = np.concatenate((y, [y[0]]))
+                line.set_data(x, y)
+
+        def set_varlabels(self, labels):
+            self.set_thetagrids(np.degrees(theta), labels)
+
+        def _gen_axes_patch(self):
+            # The Axes patch must be centered at (0.5, 0.5) and of radius 0.5
+            # in axes coordinates.
+            if frame == 'circle':
+                return Circle((0.5, 0.5), 0.5)
+            elif frame == 'polygon':
+                return RegularPolygon((0.5, 0.5), num_vars,
+                                      radius=.5, edgecolor="k")
+            else:
+                raise ValueError("unknown value for 'frame': %s" % frame)
+
+        def draw(self, renderer):
+            """ Draw. If frame is polygon, make gridlines polygon-shaped """
+            if frame == 'polygon':
+                gridlines = self.yaxis.get_gridlines()
+                for gl in gridlines:
+                    gl.get_path()._interpolation_steps = num_vars
+            super().draw(renderer)
+
+        def _gen_axes_spines(self):
+            if frame == 'circle':
+                return super()._gen_axes_spines()
+            elif frame == 'polygon':
+                # spine_type must be 'left'/'right'/'top'/'bottom'/'circle'.
+                spine = Spine(axes=self,
+                              spine_type='circle',
+                              path=Path.unit_regular_polygon(num_vars))
+                # unit_regular_polygon gives a polygon of radius 1 centered at
+                # (0, 0) but we want a polygon of radius 0.5 centered at (0.5,
+                # 0.5) in axes coordinates.
+                spine.set_transform(Affine2D().scale(.5).translate(.5, .5)
+                                    + self.transAxes)
+                return {'polar': spine}
+            else:
+                raise ValueError("unknown value for 'frame': %s" % frame)
+
+    register_projection(RadarAxes)
+    return theta
+
+
+
+COLOR_GRAPH_BACKGROUND = "#071e2e"
+
 # List of all aptions for the radio button
 all_generos = ['Feminino', 'Masculino', 'Feminino e Masculino']
 
@@ -29,36 +131,36 @@ app = Dash(__name__)
 # Defining the layout of the app
 app.layout = html.Div([
     # Title of the app
-    html.H1(children='Dados de Vôlei nas Olimpíadas de Paris', style={'bold': 'True', 'color': '#153f5c', 'text-align': 'center'}),
+    html.H1(children='Dados de Vôlei nas Olimpíadas de Paris'),
     
     # Radio button to select the genre
     dcc.RadioItems(
-        all_generos, # List of all options
-        'Feminino e Masculino', # Default Button
-        id='generos-radio', # ID of the radio button
-        inline=True,
-        style={'display': 'flex', 'gap': '10px', 'color': '#153f5c', 'align-items': 'center', 'justify-content': 'center'}
+        options=[{'label': genero, 'value': genero} for genero in all_generos],  # List of all options
+        value='Feminino e Masculino',  # Default Button
+        id='generos-radio',  # ID of the radio button
+        inline=True
     ),
     html.Div([
         html.Div([
-            html.H2(children = "Todos Os Países", style={'text-align': 'center', 'color': '#153f5c'}),
             html.Div([
-                # Graph to show the pie chart
-                dcc.Graph(id='pie_chart_all_countries', style={'flex': '1'}),
-                # Graph to show the scatter chart
-                dcc.Graph(id='scatter_chart', style={'flex': '1'}),
-            ], style={'display': 'flex'}),
-            html.Div([
+                html.H2(children="Todos Os Países"),
+                html.Div([
+                    # Graph to show the pie chart
+                    dcc.Graph(id='pie_chart_all_countries', style={'flex': '1'}),
+                    # Graph to show the scatter chart
+                    dcc.Graph(id='scatter_chart', style={'flex': '1'}),
+                ], className='graph-container'),
+                html.Div([
+                    # Graph to show the stacked bars chart
+                    dcc.Graph(id='scatter_chart_attacks_blocks', style={'flex': '1'})
+                ], className='graph-container'),
                 # Graph to show the stacked bars chart
-                dcc.Graph(id='scatter_chart_attacks_blocks', style={'flex': '1'})
-            ], style={'display': 'flex'}),
-            # Graph to show the stacked bars chart
-            dcc.Graph(id='stacked_bars_chart', style={'flex': '1'})
-        ], style={'flex': '1', 'border-width': '1px','border-style': 'solid', 'border-color': 'black', "border-radius": "10px",
-                    "margin-right": "20px"}),
+                dcc.Graph(id='stacked_bars_chart', style={'flex': '1'})
+            ], className='section-no-margin all-countries-section'),
+        ], className='section-no-margin'),
         html.Div([
             html.Div([
-                html.H2(children = "Por País", style={'text-align': 'center', 'color': '#153f5c'}),
+                html.H2(children="Por País"),
                 # Dropdown to select the country (The options of countries will be based on the selected genre)
                 dcc.Dropdown(
                     id="country"
@@ -68,96 +170,27 @@ app.layout = html.Div([
                     dcc.Graph(id='pie_chart', style={'flex': '1'}),
                     # Graph to show the scatter chart by country
                     dcc.Graph(id='scatter_chart_country', style={'flex': '1'})
-                ], style={'display': 'flex'}),
+                ], className='graph-container'),
                 html.Div([
                     # Graph to show the acumulative chart of points
                     dcc.Graph(id='points_acc_chart_country', style={'flex': '1'}),
                     # Graph to show the acumulative chart of errors
                     dcc.Graph(id='points_err_chart_country', style={'flex': '1'})
-                ], style={'display': 'flex'})
-            ], style={'border-width': '1px','border-style': 'solid', 'border-color': 'black', "border-radius": "10px"}),
+                ], className='graph-container')
+            ], className='section-no-margin country-section'),
             html.Div([
-                html.H2(children = "Por Jogador", style = {'text-align': 'center', 'color': '#153f5c'}),
+                html.H2(children="Por Jogador"),
                 # Dropdown to select the player (The options of players will be based on the selected genre and country)
                 dcc.Dropdown(
                     id="player"
                 ),
                 # Graph to show the player statistics
                 dcc.Graph(id='players_chart')
-            ], style={'border-width': '1px','border-style': 'solid', 'border-color': 'black', "border-radius": "10px",
-                      'margin-top': '8px'}),
-        ], style={'flex': '1'}),
-    ], style={'display': 'flex', 'flex': '1', 'margin': '15px'}),
+            ], className='section-no-margin player-section'),
+        ], className='section-no-margin'),
+    ], className='container'),
 ])
 
-"""
-# Defining the layout of the app
-app.layout = html.Div([
-    # Title of the app
-    html.H1(children='Dados de Vôlei nas Olimpíadas de Paris', style={'color': '#117029'}),
-    # Radio button to select the genre
-    dcc.RadioItems(
-        all_generos, # List of all options
-        'Feminino e Masculino', # Default Button
-        id='generos-radio' # ID of the radio button
-    ),
-    # --------------- Divs All countries ----------------
-    # Div to show the pie chart all countries
-    html.Div([
-        # Graph to show the pie chart
-        dcc.Graph(id='pie_chart_all_countries')
-    ]),
-    html.Div([
-        # Graph to show the scatter chart
-        dcc.Graph(id='scatter_chart')
-    ]),
-    html.Div([
-        # Graph to show the stacked bars chart
-        dcc.Graph(id='scatter_chart_attacks_blocks')
-    ]),
-    html.Div([
-        # Graph to show the stacked bars chart
-        dcc.Graph(id='stacked_bars_chart') # all countries
-    ]),
-    # -------------------- Divs by country --------------------
-    # Div to show the pie chart
-    html.Div([
-        # Dropdown to select the country (The options of countries will be based on the selected genre)
-        dcc.Dropdown(
-            id="country"
-        ),
-        # Graph to show the pie chart
-        dcc.Graph(id='pie_chart')
-    ]),
-    html.Div([
-        # Graph to show the scatter chart by country
-        dcc.Graph(id='scatter_chart_country')
-    ]),
-    html.Div([
-        # Graph to show the scatter chart
-        dcc.Graph(id='points_acc_chart_country')
-    ]),
-    html.Div([
-        # Graph to show the scatter chart
-        dcc.Graph(id='points_err_chart_country')
-    ]),
-    # ---------------- Divs all countries: PS - Ainda tentar fazer por país ----------------
-    # html.Div([
-    #     # Graph to show the stacked bars chart
-    #     dcc.Graph(id='scatter_chart_attacks_blocks')
-    # ]),
-    # ---------------- Divs by player ----------------
-    # Div to show the player statistics
-    html.Div([
-        # Dropdown to select the player (The options of players will be based on the selected genre and country)
-        dcc.Dropdown(
-            id="player"
-        ),
-        # Graph to show the player statistics
-        dcc.Graph(id='players_chart')
-    ]),
-])
-"""
 # Callback to update the pie chart of all countries
 @app.callback(
     Output("pie_chart_all_countries", "figure"),
@@ -179,15 +212,25 @@ def generate_pie_chart_all_countries(selected_genero):
         textinfo='percent',
         textfont=dict(color='white'),  # Change the color and size of the percentage numbers
         marker=dict(
-            line=dict(color='white', width=3)  # Add white lines between the divisions
+            line=dict(color='white', width=2)  # Add white lines between the divisions
         )
     )
 
     # Update the layout
     fig.update_layout(
         showlegend=True,
-        title = "Distribuição de Pontos por Categoria",
-        title_x=0.5
+        title=dict(
+            text='Distribuição de Pontos por Categoria',
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
+        legend_font_color='white',
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
     
     return fig
@@ -241,10 +284,30 @@ def generate_stacked_bars(selected_genero):
     # Update the layout for stacked bars
     fig.update_layout(
         barmode='stack',
-        title='Comparação de Países por Métricas',
-        title_x=0.5,
-        xaxis=dict(title='Países'),
-        yaxis=dict(title='Quantidade de Sucessos')
+        title=dict(
+            text='Comparação de Países por Métricas',
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
+        xaxis = dict(
+            title='Países',
+            titlefont=dict(color="white"),
+            tickangle=90,
+            tickfont=dict(color="white")
+        ),
+        yaxis = dict(
+            title='Quantidade de Sucessos',
+            titlefont=dict(color="white"),
+            tickfont=dict(color="white")
+        ),
+        legend = dict(
+            font_color = 'white'),
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
 
     # Add annotation text under the legend
@@ -253,7 +316,7 @@ def generate_stacked_bars(selected_genero):
         xref="paper", yref="paper",
         x=1.4, y=0.53,
         showarrow=False,
-        font=dict(size=10)
+        font=dict(size=10, color="white")
     )
 
     return fig
@@ -281,7 +344,7 @@ def generate_scatter_chart(selected_genero):
         y=df['Points-attacks'],
         mode='markers',
         name='Ataques',
-        marker=dict(symbol=markers[0], size=8, color='blue', line=dict(width=2, color='black'))
+        marker=dict(symbol=markers[0], size=8, color='blue', line=dict(width=1, color='white'))
     ))
 
     # Recepções
@@ -290,7 +353,7 @@ def generate_scatter_chart(selected_genero):
         y=df['Succesful-receive'],
         mode='markers',
         name='Recepções',
-        marker=dict(symbol=markers[1], size=8, color='green', line=dict(width=2, color='black'))
+        marker=dict(symbol=markers[1], size=8, color='green', line=dict(width=1, color='white'))
     ))
 
     # Levantamentos
@@ -299,17 +362,37 @@ def generate_scatter_chart(selected_genero):
         y=df['Successful-setter'],
         mode='markers',
         name='Levantamentos',
-        marker=dict(symbol=markers[5], size=8, color='red', line=dict(width=1, color='black'))
+        marker=dict(symbol=markers[5], size=8, color='red', line=dict(width=1, color='white'))
     ))
 
     # Update layout
     fig.update_layout(
-        title='Correlação entre Tentativas e Sucessos',
-        title_x=0.5,
-        xaxis_title='Número de Tentativas',
-        yaxis_title='Número de Sucessos',
-        legend_title='Categorias',
-        template='plotly_white'
+        title=dict(
+            text='Correlação entre Tentativas e Sucessos',
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
+        xaxis = dict(
+            title='Número de Tentativas',
+            titlefont=dict(color="white"),
+            tickangle=90,
+            tickfont=dict(color="white")
+        ),
+        yaxis = dict(
+            title='Número de Sucessos',
+            titlefont=dict(color="white"),
+            tickfont=dict(color="white")
+        ),
+        legend = dict(
+            title='Categorias',
+            font_color = 'white'),
+        template='plotly_white',
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
 
     return fig
@@ -362,15 +445,25 @@ def generate_pie_chart_country(selected_country, selected_genero):
         textinfo='percent',
         textfont=dict(color='white'),  # Change the color and size of the percentage numbers
         marker=dict(
-            line=dict(color='white', width=3)  # Add white lines between the divisions
+            line=dict(color='white', width=2)  # Add white lines between the divisions
         )
     )
 
     # Update the layout
     fig.update_layout(
         showlegend=True,
-        title = "Distribuição de Pontos por Categoria de um País",
-        title_x=0.5
+        title=dict(
+            text='Distribuição de Pontos por Categoria de um País',
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
+        legend_font_color='white',
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
     
     return fig
@@ -403,7 +496,7 @@ def generate_scatter_chart_country(selected_genero, selected_country):
         y=df['Points-attacks'],
         mode='markers',
         name='Ataques',
-        marker=dict(symbol=markers[0], size=8, color='blue', line=dict(width=2, color='black'))
+        marker=dict(symbol=markers[0], size=8, color='blue', line=dict(width=1, color='white'))
     ))
 
     # Recepções
@@ -412,7 +505,7 @@ def generate_scatter_chart_country(selected_genero, selected_country):
         y=df['Succesful-receive'],
         mode='markers',
         name='Recepções',
-        marker=dict(symbol=markers[1], size=8, color='green', line=dict(width=2, color='black'))
+        marker=dict(symbol=markers[1], size=8, color='green', line=dict(width=1, color='white'))
     ))
 
     # Levantamentos
@@ -421,17 +514,36 @@ def generate_scatter_chart_country(selected_genero, selected_country):
         y=df['Successful-setter'],
         mode='markers',
         name='Levantamentos',
-        marker=dict(symbol=markers[5], size=8, color='red', line=dict(width=1, color='black'))
+        marker=dict(symbol=markers[5], size=8, color='red', line=dict(width=1, color='white'))
     ))
 
     # Update layout
     fig.update_layout(
-        title='Correlação entre Tentativas e Sucessos de um País',
-        title_x=0.5,
-        xaxis_title='Número de Tentativas',
-        yaxis_title='Número de Sucessos',
-        legend_title='Categorias',
-        template='plotly_white'
+        title=dict(
+            text='Correlação entre Tentativas e Sucessos de um País',
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
+        xaxis = dict(
+            title='Número de Tentativas',
+            titlefont=dict(color="white"),
+            tickfont=dict(color="white")
+        ),
+        yaxis = dict(
+            title='Número de Sucessos',
+            titlefont=dict(color="white"),
+            tickfont=dict(color="white")
+        ),
+        legend = dict(
+            title='Categorias',
+            font_color = 'white'),
+        template='plotly_white',
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
 
     return fig
@@ -439,11 +551,57 @@ def generate_scatter_chart_country(selected_genero, selected_country):
 # Callback to update the scatter chart of attack X block based on the selected genre and team
 @app.callback(
     Output("scatter_chart_attacks_blocks", "figure"),
-    Input("generos-radio", "value"),
-    Input("country", "value")
+    Input("generos-radio", "value")
 )
-def generate_scatter_attacks_blocks(selected_genero, selected_country):
+def generate_scatter_attacks_blocks(selected_genero):
+    df, _ = return_df_genero(selected_genero)
+
+    df = df[
+    (df['Attempts-shots-attack'] > 0) |
+    (df["Succesful-blocks"] > 0)]
+
+    # Create figure
+    markers = ['circle', 'triangle-up', 'star', 'triangle-down', 'square', 'x', 'diamond']
+    
     fig = go.Figure()
+
+    # Ataques
+    fig.add_trace(go.Scatter(
+        x=df['Attempts-shots-attack'],
+        y=df['Succesful-blocks'],
+        mode='markers',
+        name='Ataques',
+        marker=dict(symbol=markers[0], size=8, color='#0095CC', line=dict(width=1, color='white'))
+    ))
+
+    # Update layout
+    fig.update_layout(
+        title=dict(
+            text='Bloqueios bem-sucedidos vs. Tentativas de Ataque',
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
+        xaxis = dict(
+            title='Tentativas de Ataque (Adversários)',
+            titlefont=dict(color="white"),
+            tickfont=dict(color="white")
+        ),
+        yaxis = dict(
+            title='Bloqueios bem-sucedidos',
+            titlefont=dict(color="white"),
+            tickfont=dict(color="white")
+        ),
+        legend = dict(
+            title='Categorias',
+            font_color = 'white'),
+        template='plotly_white',
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
+    )
 
     return fig
 
@@ -494,8 +652,15 @@ def generate_acc_chart_country(selected_genero, selected_country):
 
     # Update layout
     fig.update_layout(
-        title='Análise Acumulativa de Pontos por Jogador',
-        xaxis_title='Jogador',
+        title=dict(
+            text="Análise Acumulativa de Pontos por Jogador",
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
         yaxis=dict(
             title='Total de Pontos',
             side='left',
@@ -517,8 +682,15 @@ def generate_acc_chart_country(selected_genero, selected_country):
             tickfont=dict(color="green")
         ),
         legend=dict(x=0.01, y=0.99, bgcolor='rgba(255,255,255,0.5)'),
-        xaxis=dict(tickangle=90),
-        template='plotly_white'
+        xaxis = dict(
+            title='Jogador',
+            titlefont=dict(color="white"),
+            tickangle=90,
+            tickfont=dict(color="white")
+        ),
+        template='plotly_white',
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
 
     return fig
@@ -570,8 +742,21 @@ def generate_err_chart_country(selected_genero, selected_country):
 
     # Update layout
     fig.update_layout(
-        title='Análise Acumulativa de Erros por Jogador',
-        xaxis_title='Jogador',
+        title=dict(
+            text="Análise Acumulativa de Erros por Jogador",
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
+        xaxis = dict(
+            title='Jogador',
+            titlefont=dict(color="white"),
+            tickangle=90,
+            tickfont=dict(color="white")
+        ),
         yaxis=dict(
             title='Total de Erros',
             side='left',
@@ -593,8 +778,9 @@ def generate_err_chart_country(selected_genero, selected_country):
             tickfont=dict(color="red")
         ),
         legend=dict(x=0.01, y=0.99, bgcolor='rgba(255,255,255,0.5)'),
-        xaxis=dict(tickangle=90),
-        template='plotly_white'
+        template='plotly_white',
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
 
     return fig
@@ -639,6 +825,10 @@ def generate_player_statistics(player, selected_genero):
     metrics = ['Attack-Points', 'Block-Points', 'Total-dig', 'Total-receive', 'Serve-Points', 'Total-setter']
     # metrics = ['Success-percent-attack', 'Efficiency-percent-block', 'Success-percent-dig', 'Success-percent-receive', 'Success-percent-serve', 'Success-percent-setter']
     # metrics = ['Points-attacks', 'Succesful-blocks', 'Successful-dig', 'Succesful-receive','serve-points', 'Successful-setter']
+    
+    # Create the radar chart using Matplotlib
+    num_vars = len(metrics)
+    theta_v = radar_factory(num_vars, frame='polygon')
 
     fig = go.Figure() # Create a new figure
 
@@ -664,16 +854,16 @@ def generate_player_statistics(player, selected_genero):
             rotation=0,
             direction="clockwise",
             showline=True,
-            linecolor="black",
+            linecolor="white",
             showticklabels=True,
             ticks="outside",
             tickwidth=1,
             ticklen=1,
-            tickcolor="black",
+            tickcolor="white",
             tickfont=dict(
                 family="Arial",
                 size=20,
-                color="black"
+                color="white"
             ),
             showgrid=True
         ),
@@ -686,8 +876,17 @@ def generate_player_statistics(player, selected_genero):
     # Update the layout
     fig.update_layout(
         showlegend=False,
-        title = "Estatísticas do Jogador",
-        title_x=0.5
+        title=dict(
+            text="Estatísticas do Jogador",
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=20,
+                color="white"
+            )
+        ),
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
     
     return fig
