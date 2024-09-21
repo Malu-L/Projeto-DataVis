@@ -6,7 +6,8 @@ from readfile import *
 
 COLOR_GRAPH_BACKGROUND = "#222e3a"
 FONT_CONST = "Arial" # Font in Graphs
-
+#COLORS_CONST = ['#2c7fb8', '#de2d26', '#009E73']
+COLORS_CONST = ["#264b96", "#bf212f", "#006f3c"]
 # List of all aptions for the radio button
 all_generos = ['Feminino', 'Masculino', 'Feminino e Masculino']
 
@@ -72,26 +73,33 @@ app.layout = html.Div([
                     # Graph to show the scatter chart by country
                     dcc.Graph(id='scatter_chart_country', style={'flex': '1'})
                 ], className='graph-container'),
-                html.Div(
-                    # Graph to show the scatter chart of attack X block by country
-                    dcc.Graph(id='scatter_chart_attacks_blocks_per_country', style={'flex': '1'}),
-                ),
                 html.Div([
                     # Graph to show the acumulative chart of points
                     dcc.Graph(id='points_acc_chart_country', style={'flex': '1'}),
                     # Graph to show the acumulative chart of errors
                     dcc.Graph(id='points_err_chart_country', style={'flex': '1'})
-                ], className='graph-container')
+                ], className='graph-container'),
+                html.Div([
+                    # Graph to show the scatter chart of attack X block by country
+                    dcc.Graph(id='scatter_chart_attacks_blocks_per_country', style={'flex': '1'}),
+                    # Dropdown to select the player (The options of players will be based on the selected genre and country)
+                    html.Div([
+                        dcc.Dropdown(
+                            id="player"
+                        ),
+                        # Graph to show the player statistics
+                        dcc.Graph(id='players_chart')], style={'flex': '1'})
+                ], className='graph-container'),
             ], className='section-no-margin country-section'),
-            html.Div([
-                html.H2(children="Por Jogador"),
-                # Dropdown to select the player (The options of players will be based on the selected genre and country)
-                dcc.Dropdown(
-                    id="player"
-                ),
-                # Graph to show the player statistics
-                dcc.Graph(id='players_chart')
-            ], className='section-no-margin player-section'),
+            # html.Div([
+            #     html.H2(children="Por Jogador"),
+            #     # Dropdown to select the player (The options of players will be based on the selected genre and country)
+            #     dcc.Dropdown(
+            #         id="player"
+            #     ),
+            #     # Graph to show the player statistics
+            #     dcc.Graph(id='players_chart')
+            # ], className='section-no-margin player-section'),
         ], className='section-no-margin'),
     ], className='container'),
 ])
@@ -117,6 +125,7 @@ def generate_pie_chart_all_countries(selected_genero):
         textinfo='percent',
         textfont=dict(color='white'),  # Change the color and size of the percentage numbers
         marker=dict(
+            colors = COLORS_CONST,
             line=dict(color='white', width=2)  # Add white lines between the divisions
         )
     )
@@ -162,7 +171,7 @@ def generate_scatter_chart_all_countries(selected_genero):
         y=df['Points-attacks'],
         mode='markers',
         name='Ataques',
-        marker=dict(symbol=markers[0], size=8, color='blue', line=dict(width=1, color='white'))
+        marker=dict(symbol=markers[0], size=10, color=COLORS_CONST[0], line=dict(width=1, color='white'))
     ))
 
     # Recepções
@@ -171,7 +180,7 @@ def generate_scatter_chart_all_countries(selected_genero):
         y=df['Succesful-receive'],
         mode='markers',
         name='Recepções',
-        marker=dict(symbol=markers[1], size=8, color='green', line=dict(width=1, color='white'))
+        marker=dict(symbol=markers[1], size=10, color=COLORS_CONST[1], line=dict(width=1, color='white'))
     ))
 
     # Levantamentos
@@ -180,7 +189,7 @@ def generate_scatter_chart_all_countries(selected_genero):
         y=df['Successful-setter'],
         mode='markers',
         name='Levantamentos',
-        marker=dict(symbol=markers[5], size=8, color='red', line=dict(width=1, color='white'))
+        marker=dict(symbol=markers[5], size=10, color=COLORS_CONST[2], line=dict(width=1, color='white'))
     ))
 
     # Update layout
@@ -234,7 +243,7 @@ def generate_scatter_attacks_blocks(selected_genero):
         y=df['Succesful-blocks'],
         mode='markers',
         name='Ataques',
-        marker=dict(symbol=markers[0], size=8, color='#0095CC', line=dict(width=1, color='white'))
+        marker=dict(symbol=markers[0], size=10, color=COLORS_CONST[0], line=dict(width=1, color='white'))
     ))
 
     # Update layout
@@ -401,6 +410,7 @@ def generate_pie_chart_country(selected_country, selected_genero):
         textinfo='percent',
         textfont=dict(color='white'),  # Change the color and size of the percentage numbers
         marker=dict(
+            colors = COLORS_CONST,
             line=dict(color='white', width=2)  # Add white lines between the divisions
         )
     )
@@ -452,7 +462,7 @@ def generate_scatter_chart_country(selected_genero, selected_country):
         y=df['Points-attacks'],
         mode='markers',
         name='Ataques',
-        marker=dict(symbol=markers[0], size=8, color='blue', line=dict(width=1, color='white'))
+        marker=dict(symbol=markers[0], size=10, color=COLORS_CONST[0], line=dict(width=1, color='white'))
     ))
 
     # Recepções
@@ -461,7 +471,7 @@ def generate_scatter_chart_country(selected_genero, selected_country):
         y=df['Succesful-receive'],
         mode='markers',
         name='Recepções',
-        marker=dict(symbol=markers[1], size=8, color='green', line=dict(width=1, color='white'))
+        marker=dict(symbol=markers[1], size=10, color=COLORS_CONST[1], line=dict(width=1, color='white'))
     ))
 
     # Levantamentos
@@ -470,7 +480,7 @@ def generate_scatter_chart_country(selected_genero, selected_country):
         y=df['Successful-setter'],
         mode='markers',
         name='Levantamentos',
-        marker=dict(symbol=markers[5], size=8, color='red', line=dict(width=1, color='white'))
+        marker=dict(symbol=markers[5], size=10, color=COLORS_CONST[2], line=dict(width=1, color='white'))
     ))
 
     # Update layout
@@ -529,7 +539,7 @@ def generate_scatter_attacks_blocks_per_country(selected_genero, selected_countr
         y=df['Succesful-blocks'],
         mode='markers',
         name='Ataques',
-        marker=dict(symbol=markers[0], size=8, color='#0095CC', line=dict(width=1, color='white'))
+        marker=dict(symbol=markers[0], size=10, color=COLORS_CONST[0], line=dict(width=1, color='white'))
     ))
 
     # Update layout
@@ -593,8 +603,8 @@ def generate_acc_chart_country(selected_genero, selected_country):
         x=pontos_totais.index,
         y=pontos_totais['Total Pontos'],
         name='Total de Pontos',
-        marker_color='#0095CC',
-        marker_line=dict(width=2.5, color='black'),
+        marker_color=COLORS_CONST[0],
+        marker_line=dict(width=1, color='white'),
         yaxis='y1'
     ))
 
@@ -604,7 +614,8 @@ def generate_acc_chart_country(selected_genero, selected_country):
         y=pontos_totais['Cumulativo'],
         name='Cumulativo (%)',
         mode='lines+markers',
-        marker=dict(symbol='circle', size=8, color='green', line=dict(width=2, color='black')),
+        line=dict(width=3, color=COLORS_CONST[2], dash='solid'), # I How yo change the border of the line to white
+        marker=dict(symbol='circle', size=8, color=COLORS_CONST[2], line=dict(width=1, color='white')),
         yaxis='y2'
     ))
 
@@ -625,8 +636,8 @@ def generate_acc_chart_country(selected_genero, selected_country):
             showgrid=False,
             showline=True,
             ticks="outside",
-            titlefont=dict(color="#1f77b4"),
-            tickfont=dict(color="#1f77b4")
+            titlefont=dict(color=COLORS_CONST[0]),
+            tickfont=dict(color=COLORS_CONST[0])
         ),
         yaxis2=dict(
             title='Porcentagem Cumulativa (%)',
@@ -636,8 +647,8 @@ def generate_acc_chart_country(selected_genero, selected_country):
             showline=True,
             range=[0, 110],
             ticks="outside",
-            titlefont=dict(color="green"),
-            tickfont=dict(color="green")
+            titlefont=dict(color=COLORS_CONST[2]),
+            tickfont=dict(color=COLORS_CONST[2])
         ),
         legend=dict(x=0.01, y=0.99, bgcolor='rgba(255,255,255,0.5)'),
         xaxis = dict(
@@ -683,8 +694,8 @@ def generate_err_chart_country(selected_genero, selected_country):
         x=erros_totais.index,
         y=erros_totais['Total de Erros'],
         name='Total de Erros',
-        marker_color='#0095CC',
-        marker_line=dict(width=2.5, color='black'),
+        marker_color=COLORS_CONST[0],
+        marker_line=dict(width=1, color='white'),
         yaxis='y1'
     ))
 
@@ -694,7 +705,7 @@ def generate_err_chart_country(selected_genero, selected_country):
         y=erros_totais['Cumulativo'],
         name='Cumulativo (%)',
         mode='lines+markers',
-        marker=dict(symbol='circle', size=8, color='red', line=dict(width=2, color='black')),
+        marker=dict(symbol='circle', size=8, color=COLORS_CONST[1], line=dict(width=1, color='white')),
         yaxis='y2'
     ))
 
@@ -721,8 +732,8 @@ def generate_err_chart_country(selected_genero, selected_country):
             showgrid=False,
             showline=True,
             ticks="outside",
-            titlefont=dict(color="#0095CC"),
-            tickfont=dict(color="#0095CC")
+            titlefont=dict(color=COLORS_CONST[0]),
+            tickfont=dict(color=COLORS_CONST[0])
         ),
         yaxis2=dict(
             title='Porcentagem Cumulativa (%)',
@@ -732,8 +743,8 @@ def generate_err_chart_country(selected_genero, selected_country):
             showline=True,
             range=[0, 110],
             ticks="outside",
-            titlefont=dict(color="red"),
-            tickfont=dict(color="red")
+            titlefont=dict(color=COLORS_CONST[1]),
+            tickfont=dict(color=COLORS_CONST[1])
         ),
         legend=dict(x=0.01, y=0.99, bgcolor='rgba(255,255,255,0.5)'),
         template='plotly_white',
@@ -789,7 +800,7 @@ def generate_player_statistics(player, selected_genero):
     for i, (idx, row) in enumerate(player_data.iterrows()):
         fig.add_trace(go.Scatterpolar(
             r=row[metrics].values,
-            theta=['Ataque', 'Bloqueio', 'Defesa', 'Defesa de Saque', 'Saque', 'Levantar/Setter'],
+            theta=['Ataque', 'Bloqueio', 'Defesa', 'Def de\n Saque', 'Saque', 'Levantar/Setter'],
             fill='toself',
             name=f"{row['Player-Name']} ({row['Team']})",
             marker=dict(
@@ -814,15 +825,17 @@ def generate_player_statistics(player, selected_genero):
             ticklen=1,
             tickcolor="white",
             tickfont=dict(
-                family=FONT_CONST,
-                size=20,
+                family="Arial",
+                size=12,
                 color="white"
             ),
-            showgrid=True
+            showgrid=True,
+            gridcolor="white",
+            gridwidth=2
         ),
         radialaxis=dict(
-            showline=True,
-            range=[0, player_data[metrics].max().max()*1.1],
+            showline=False,
+            range=[0, player_data[metrics].max().max() * 1.1],
             showticklabels=False
         )
     )
