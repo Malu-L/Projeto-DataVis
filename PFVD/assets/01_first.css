@@ -1,8 +1,8 @@
-/* Set background color and full-screen layout */
+/* Ainda fazer responsividade */
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #071e2e;
+  background-color: #222e3a;
   color: white; /* Optional: Set text color to white for better contrast */
   font-family: Arial, sans-serif; /* Optional: Set a default font */
 }
@@ -74,26 +74,26 @@ h2 {
 
 /* Custom styles for dropdowns */
 .dash-dropdown .Select-control {
-  background-color: #071e2e; /* Background color for dropdown */
+  background-color: #222e3a; /* Background color for dropdown */
   color: white; /* Text color for dropdown */
   border: 1px solid white; /* Border color for dropdown */
 }
 
 .dash-dropdown .Select-menu-outer {
-  background-color: #071e2e; /* Background color for dropdown options */
+  background-color: #222e3a; /* Background color for dropdown options */
   color: white; /* Text color for dropdown options */
 }
 
 .dash-dropdown .Select-option {
-  background-color: #071e2e; /* Background color for dropdown options */
+  background-color: #222e3a; /* Background color for dropdown options */
 }
 
 .dash-dropdown .Select-option.is-focused {
-  background-color: #071e2e; /* Background color for focused option */
+  background-color: #222e3a; /* Background color for focused option */
 }
 
 .dash-dropdown .Select-option.is-selected {
-  background-color: #071e2e; /* Background color for selected option */
+  background-color: #222e3a; /* Background color for selected option */
 }
 
 .has-value.Select--single>.Select-control .Select-value .Select-value-label, .has-value.is-pseudo-focused.Select--single>.Select-control .Select-value .Select-value-label{ /* Text color for selected option */

@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from readfile import *
 
-COLOR_GRAPH_BACKGROUND = "#071e2e"
+COLOR_GRAPH_BACKGROUND = "#222e3a"
 
 # List of all aptions for the radio button
 all_generos = ['Feminino', 'Masculino', 'Feminino e Masculino']
@@ -44,6 +44,8 @@ app.layout = html.Div([
         html.Div([
             html.Div([
                 html.H2(children="Todos Os Países"),
+                # Graph to show the stacked bars chart
+                dcc.Graph(id='stacked_bars_chart', style={'flex': '1'}),
                 html.Div([
                     # Graph to show the pie chart
                     dcc.Graph(id='pie_chart_all_countries', style={'flex': '1'}),
@@ -54,8 +56,6 @@ app.layout = html.Div([
                     # Graph to show the stacked bars chart
                     dcc.Graph(id='scatter_chart_attacks_blocks', style={'flex': '1'})
                 ], className='graph-container'),
-                # Graph to show the stacked bars chart
-                dcc.Graph(id='stacked_bars_chart', style={'flex': '1'})
             ], className='section-no-margin all-countries-section'),
         ], className='section-no-margin'),
         html.Div([
@@ -71,6 +71,10 @@ app.layout = html.Div([
                     # Graph to show the scatter chart by country
                     dcc.Graph(id='scatter_chart_country', style={'flex': '1'})
                 ], className='graph-container'),
+                html.Div(
+                    # Graph to show the scatter chart of attack X block by country
+                    dcc.Graph(id='scatter_chart_attacks_blocks_per_country', style={'flex': '1'}),
+                ),
                 html.Div([
                     # Graph to show the acumulative chart of points
                     dcc.Graph(id='points_acc_chart_country', style={'flex': '1'}),
@@ -132,7 +136,135 @@ def generate_pie_chart_all_countries(selected_genero):
         plot_bgcolor=COLOR_GRAPH_BACKGROUND,
         paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
+    return fig
+
+# Callback to update the scatter chart based on the selected genre
+@app.callback(
+    Output("scatter_chart", "figure"),
+    Input("generos-radio", "value")
+)
+def generate_scatter_chart_all_countries(selected_genero):
+    df, _ = return_df_genero(selected_genero)
+    df = df[
+    (df['Points-attacks'] > 0) |
+    (df["Succesful-receive"] > 0) |
+    (df["Successful-setter"] > 0)]
+
+    # Create figure
+    markers = ['circle', 'triangle-up', 'star', 'triangle-down', 'square', 'x', 'diamond']
     
+    fig = go.Figure()
+
+    # Ataques
+    fig.add_trace(go.Scatter(
+        x=df['Attempts-shots-attack'],
+        y=df['Points-attacks'],
+        mode='markers',
+        name='Ataques',
+        marker=dict(symbol=markers[0], size=8, color='blue', line=dict(width=1, color='white'))
+    ))
+
+    # Recepções
+    fig.add_trace(go.Scatter(
+        x=df['Attemps-receive'],
+        y=df['Succesful-receive'],
+        mode='markers',
+        name='Recepções',
+        marker=dict(symbol=markers[1], size=8, color='green', line=dict(width=1, color='white'))
+    ))
+
+    # Levantamentos
+    fig.add_trace(go.Scatter(
+        x=df['Attempts-setter'],
+        y=df['Successful-setter'],
+        mode='markers',
+        name='Levantamentos',
+        marker=dict(symbol=markers[5], size=8, color='red', line=dict(width=1, color='white'))
+    ))
+
+    # Update layout
+    fig.update_layout(
+        title=dict(
+            text='Correlação entre Tentativas e Sucessos',
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
+        xaxis = dict(
+            title='Número de Tentativas',
+            titlefont=dict(color="white"),
+            tickangle=90,
+            tickfont=dict(color="white")
+        ),
+        yaxis = dict(
+            title='Número de Sucessos',
+            titlefont=dict(color="white"),
+            tickfont=dict(color="white")
+        ),
+        legend = dict(
+            title='Categorias',
+            font_color = 'white'),
+        template='plotly_white',
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
+    )
+
+    return fig
+
+# Callback to update the scatter chart of attack X block based on the selected genre and team
+@app.callback(
+    Output("scatter_chart_attacks_blocks", "figure"),
+    Input("generos-radio", "value")
+)
+def generate_scatter_attacks_blocks(selected_genero):
+    df, _ = return_df_genero(selected_genero)
+
+    # Create figure
+    markers = ['circle', 'triangle-up', 'star', 'triangle-down', 'square', 'x', 'diamond']
+    
+    fig = go.Figure()
+
+    # Ataques
+    fig.add_trace(go.Scatter(
+        x=df['Attempts-shots-attack'],
+        y=df['Succesful-blocks'],
+        mode='markers',
+        name='Ataques',
+        marker=dict(symbol=markers[0], size=8, color='#0095CC', line=dict(width=1, color='white'))
+    ))
+
+    # Update layout
+    fig.update_layout(
+        title=dict(
+            text='Bloqueios bem-sucedidos vs. Tentativas de Ataque',
+            x=0.5,
+            font=dict(
+                family="Arial",
+                size=15,
+                color="white"
+            )
+        ),
+        xaxis = dict(
+            title='Tentativas de Ataque (Adversários)',
+            titlefont=dict(color="white"),
+            tickfont=dict(color="white")
+        ),
+        yaxis = dict(
+            title='Bloqueios bem-sucedidos',
+            titlefont=dict(color="white"),
+            tickfont=dict(color="white")
+        ),
+        legend = dict(
+            title='Categorias',
+            font_color = 'white'),
+        template='plotly_white',
+        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
+        paper_bgcolor=COLOR_GRAPH_BACKGROUND
+    )
+
     return fig
 
 # Callback to update the stacked bars chart based on the selected genre
@@ -218,83 +350,6 @@ def generate_stacked_bars(selected_genero):
         showarrow=False,
         font=dict(size=10, color="white")
     )
-
-    return fig
-
-# Callback to update the scatter chart based on the selected genre
-@app.callback(
-    Output("scatter_chart", "figure"),
-    Input("generos-radio", "value")
-)
-def generate_scatter_chart(selected_genero):
-    df, _ = return_df_genero(selected_genero)
-    df = df[
-    (df['Points-attacks'] > 0) |
-    (df["Succesful-receive"] > 0) |
-    (df["Successful-setter"] > 0)]
-
-    # Create figure
-    markers = ['circle', 'triangle-up', 'star', 'triangle-down', 'square', 'x', 'diamond']
-    
-    fig = go.Figure()
-
-    # Ataques
-    fig.add_trace(go.Scatter(
-        x=df['Attempts-shots-attack'],
-        y=df['Points-attacks'],
-        mode='markers',
-        name='Ataques',
-        marker=dict(symbol=markers[0], size=8, color='blue', line=dict(width=1, color='white'))
-    ))
-
-    # Recepções
-    fig.add_trace(go.Scatter(
-        x=df['Attemps-receive'],
-        y=df['Succesful-receive'],
-        mode='markers',
-        name='Recepções',
-        marker=dict(symbol=markers[1], size=8, color='green', line=dict(width=1, color='white'))
-    ))
-
-    # Levantamentos
-    fig.add_trace(go.Scatter(
-        x=df['Attempts-setter'],
-        y=df['Successful-setter'],
-        mode='markers',
-        name='Levantamentos',
-        marker=dict(symbol=markers[5], size=8, color='red', line=dict(width=1, color='white'))
-    ))
-
-    # Update layout
-    fig.update_layout(
-        title=dict(
-            text='Correlação entre Tentativas e Sucessos',
-            x=0.5,
-            font=dict(
-                family="Arial",
-                size=15,
-                color="white"
-            )
-        ),
-        xaxis = dict(
-            title='Número de Tentativas',
-            titlefont=dict(color="white"),
-            tickangle=90,
-            tickfont=dict(color="white")
-        ),
-        yaxis = dict(
-            title='Número de Sucessos',
-            titlefont=dict(color="white"),
-            tickfont=dict(color="white")
-        ),
-        legend = dict(
-            title='Categorias',
-            font_color = 'white'),
-        template='plotly_white',
-        plot_bgcolor=COLOR_GRAPH_BACKGROUND,
-        paper_bgcolor=COLOR_GRAPH_BACKGROUND
-    )
-
     return fig
 
 # Callback to update the options of the country dropdown based on the selected genre
@@ -450,15 +505,17 @@ def generate_scatter_chart_country(selected_genero, selected_country):
 
 # Callback to update the scatter chart of attack X block based on the selected genre and team
 @app.callback(
-    Output("scatter_chart_attacks_blocks", "figure"),
-    Input("generos-radio", "value")
+    Output("scatter_chart_attacks_blocks_per_country", "figure"),
+    Input("generos-radio", "value"),
+    Input("country", "value")
 )
-def generate_scatter_attacks_blocks(selected_genero):
+def generate_scatter_attacks_blocks_per_country(selected_genero, selected_country):
+    if not selected_country:
+        return go.Figure()
+
     df, _ = return_df_genero(selected_genero)
 
-    df = df[
-    (df['Attempts-shots-attack'] > 0) |
-    (df["Succesful-blocks"] > 0)]
+    df = df[(df['Team'] == selected_country)]
 
     # Create figure
     markers = ['circle', 'triangle-up', 'star', 'triangle-down', 'square', 'x', 'diamond']
@@ -477,7 +534,7 @@ def generate_scatter_attacks_blocks(selected_genero):
     # Update layout
     fig.update_layout(
         title=dict(
-            text='Bloqueios bem-sucedidos vs. Tentativas de Ataque',
+            text=f'Bloqueios bem-sucedidos vs. Tentativas de Ataque de {selected_country}',
             x=0.5,
             font=dict(
                 family="Arial",
@@ -698,7 +755,6 @@ def set_players_options(selected_genero, selected_country):
     df = df.sort_values(by="Player-Name") # Sorting the dataframe by the column "Player-Name" (Alphabetical order)
     # Creating the options for the dropdown based on the unique values of the column "Player-Name"
     player_options = [{'label': i, 'value': i} for i in df[df["Team"] == selected_country]["Player-Name"].unique()]
-
     return player_options
 
 # Callback to update the value of the player dropdown
