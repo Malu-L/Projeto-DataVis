@@ -28,9 +28,7 @@ h2 {
 
 /* Container for all sections */
 .container {
-  display: flex;
-  flex: 1;
-  margin: 15px;
+  column-gap: 10%;
 }
 
 .stats-container {

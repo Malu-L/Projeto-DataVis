@@ -1,4 +1,5 @@
 from dash import Dash
+import dash_bootstrap_components as dbc
 from dash import html, dcc, Output, Input
 import plotly.express as px
 import plotly.graph_objects as go
@@ -28,84 +29,96 @@ def return_df_genero(selected_genero):
     return df, color
 
 # Inicializing the Dash app
-app = Dash(__name__)
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Defining the layout of the app
-app.layout = html.Div([
+app.layout = dbc.Container(fluid=True, children=[
     # Title of the app
-    html.H1(children='Dados de Vôlei nas Olimpíadas de Paris'),
-    
-    # Radio button to select the genre
-    dcc.RadioItems(
-        options=[{'label': genero, 'value': genero} for genero in all_generos],  # List of all options
-        value='Feminino e Masculino',  # Default Button
-        id='generos-radio',  # ID of the radio button
-        inline=True
+    dbc.Row(
+        dbc.Col(
+            html.H1("Dados de Vôlei nas Olimpíadas de Paris")
+        )
     ),
-    html.Div([
-        html.Div([
-            html.Div([
+
+    # Radio button to select the genre
+    dbc.Row(
+        dbc.Col(
+            dbc.RadioItems(
+                options=[{'label': genero, 'value': genero} for genero in all_generos],  # List of all options
+                value='Feminino e Masculino',  # Default Button
+                id='generos-radio',  # ID of the radio button
+                inline=True
+            ),
+            width={"size": 6, "offset": 3},  # Centralizando o componente na tela
+        )
+    ),
+
+    dbc.Row([
+        dbc.Col([
+            dbc.Row([
                 html.H2(children="Todos Os Países"),
-                # Graph to show the stacked bars chart
-                dcc.Graph(id='stacked_bars_chart', style={'flex': '1'}),
-                html.Div([
-                    # Graph to show the pie chart
-                    dcc.Graph(id='pie_chart_all_countries', style={'flex': '1'}),
-                    # Graph to show the scatter chart
-                    dcc.Graph(id='scatter_chart', style={'flex': '1'}),
-                ], className='graph-container'),
-                html.Div([
-                    # Graph to show the stacked bars chart
-                    dcc.Graph(id='scatter_chart_attacks_blocks', style={'flex': '1'})
-                ], className='graph-container'),
-            ], className='section-no-margin all-countries-section'),
-        ], className='section-no-margin'),
-        html.Div([
-            html.Div([
-                html.Div([
-                    html.H2(children="Por País"),
-                # Dropdown to select the country (The options of countries will be based on the selected genre)
-                dcc.Dropdown(
-                    id="country"
-                )], className="country-container"),
-                html.Div([
-                    # Graph to show the pie chart
-                    dcc.Graph(id='pie_chart', style={'flex': '1'}),
-                    # Graph to show the scatter chart by country
-                    dcc.Graph(id='scatter_chart_country', style={'flex': '1'})
-                ], className='graph-container'),
-                html.Div([
-                    # Graph to show the acumulative chart of points
-                    dcc.Graph(id='points_acc_chart_country', style={'flex': '1'}),
-                    # Graph to show the acumulative chart of errors
-                    dcc.Graph(id='points_err_chart_country', style={'flex': '1'})
-                ], className='graph-container'),
-                html.Div([
-                    # Graph to show the scatter chart of attack X block by country
-                    dcc.Graph(id='scatter_chart_attacks_blocks_per_country', style={'flex': '1', 'height': '70%'}),
-                    # Dropdown to select the player (The options of players will be based on the selected genre and country)
+            ]),
+            dbc.Row([
+                dcc.Graph(id='stacked_bars_chart'),
+            ]),
+            dbc.Row([
+                dbc.Col([
+                    dcc.Graph(id='pie_chart_all_countries')
+                ], width=6),
+                dbc.Col([
+                    dcc.Graph(id='scatter_chart')
+                ], width=6)
+            ]),
+            dbc.Row([
+                dcc.Graph(id='scatter_chart_attacks_blocks')
+            ])
+        ], width=6),
+        dbc.Col([
+            dbc.Row([
+                dbc.Col([
                     html.Div([
+                        html.H2(children="Por País"),
+                        dcc.Dropdown(
+                            id="country"
+                    )], className='country-container')
+                ])
+            ]),
+            dbc.Row([
+                dbc.Col([
+                    dcc.Graph(id='pie_chart')
+                ], width=6),
+                dbc.Col([
+                    dcc.Graph(id='scatter_chart_country')
+                ], width=6)
+            ]),
+            dbc.Row([
+                dbc.Col([
+                    dcc.Graph(id='points_acc_chart_country')
+                ], width=6),
+                dbc.Col([
+                    dcc.Graph(id='points_err_chart_country')
+                ], width=6)
+            ]),
+            dbc.Row([
+                dbc.Col([
+                    dcc.Graph(id='scatter_chart_attacks_blocks_per_country'),
+                ], width=6),
+                dbc.Col([
+                    dbc.Row([
                         html.Div([
                             html.H2(children="Estatísticas por jogador"),
                         # Dropdown to select the country (The options of countries will be based on the selected genre)
                         dcc.Dropdown(
                             id="player"
                     )], className="stats-container"),
-                        # Graph to show the player statistics
-                    dcc.Graph(id='players_chart')], style={'flex': '1'})
-                ], className='graph-container'),
-            ], className='section-no-margin country-section'),
-            # html.Div([
-            #     html.H2(children="Por Jogador"),
-            #     # Dropdown to select the player (The options of players will be based on the selected genre and country)
-            #     dcc.Dropdown(
-            #         id="player"
-            #     ),
-            #     # Graph to show the player statistics
-            #     dcc.Graph(id='players_chart')
-            # ], className='section-no-margin player-section'),
-        ], className='section-no-margin'),
-    ], className='container'),
+                    dbc.Row([
+                        dcc.Graph(id='players_chart')])
+                    ])
+                    
+                ], width=6)
+            ])
+        ], width=6)
+    ]),
 ], className='main-container')
 
 # Callback to update the pie chart of all countries
