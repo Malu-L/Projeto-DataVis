@@ -15,7 +15,7 @@ h1 {
 h2 {
     color: white;
     text-align: center;
-  }
+}
 
 /* Radio button container */
 #generos-radio {
@@ -33,6 +33,20 @@ h2 {
   margin: 15px;
 }
 
+.stats-container {
+  margin-top: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2%;
+}
+
+.country-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
 
 /* Section container without margin-right */
 .section-no-margin {
@@ -44,6 +58,7 @@ h2 {
 .graph-container {
   display: flex;
   gap: 10px; /* Adds space between graphs */
+  height: 70%;
 }
 
 /* Section container */
@@ -76,7 +91,10 @@ h2 {
 .dash-dropdown .Select-control {
   background-color: #222e3a; /* Background color for dropdown */
   color: white; /* Text color for dropdown */
-  border: 1px solid white; /* Border color for dropdown */
+  border: 0px solid white; /* Border color for dropdown */
+  background-color: #415366;
+  max-width: 10vw;
+  min-width: 5vw;
 }
 
 .dash-dropdown .Select-menu-outer {

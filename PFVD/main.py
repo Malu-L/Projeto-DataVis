@@ -62,11 +62,12 @@ app.layout = html.Div([
         ], className='section-no-margin'),
         html.Div([
             html.Div([
-                html.H2(children="Por País"),
+                html.Div([
+                    html.H2(children="Por País"),
                 # Dropdown to select the country (The options of countries will be based on the selected genre)
                 dcc.Dropdown(
                     id="country"
-                ),
+                )], className="country-container"),
                 html.Div([
                     # Graph to show the pie chart
                     dcc.Graph(id='pie_chart', style={'flex': '1'}),
@@ -81,14 +82,17 @@ app.layout = html.Div([
                 ], className='graph-container'),
                 html.Div([
                     # Graph to show the scatter chart of attack X block by country
-                    dcc.Graph(id='scatter_chart_attacks_blocks_per_country', style={'flex': '1'}),
+                    dcc.Graph(id='scatter_chart_attacks_blocks_per_country', style={'flex': '1', 'height': '70%'}),
                     # Dropdown to select the player (The options of players will be based on the selected genre and country)
                     html.Div([
+                        html.Div([
+                            html.H2(children="Estatísticas por jogador"),
+                        # Dropdown to select the country (The options of countries will be based on the selected genre)
                         dcc.Dropdown(
                             id="player"
-                        ),
+                    )], className="stats-container"),
                         # Graph to show the player statistics
-                        dcc.Graph(id='players_chart')], style={'flex': '1'})
+                    dcc.Graph(id='players_chart')], style={'flex': '1'})
                 ], className='graph-container'),
             ], className='section-no-margin country-section'),
             # html.Div([
@@ -102,7 +106,7 @@ app.layout = html.Div([
             # ], className='section-no-margin player-section'),
         ], className='section-no-margin'),
     ], className='container'),
-])
+], className='main-container')
 
 # Callback to update the pie chart of all countries
 @app.callback(
@@ -207,7 +211,8 @@ def generate_scatter_chart_all_countries(selected_genero):
             title='Número de Tentativas',
             titlefont=dict(color="white"),
             tickangle=90,
-            tickfont=dict(color="white")
+            tickfont=dict(color="white"),
+            ticklabelstandoff=5
         ),
         yaxis = dict(
             title='Número de Sucessos',
@@ -339,7 +344,8 @@ def generate_stacked_bars(selected_genero):
             title='Países',
             titlefont=dict(color="white"),
             tickangle=90,
-            tickfont=dict(color="white")
+            tickfont=dict(color="white"),
+            ticklabelstandoff=5
         ),
         yaxis = dict(
             title='Quantidade de Sucessos',
@@ -655,7 +661,8 @@ def generate_acc_chart_country(selected_genero, selected_country):
             title='Jogador',
             titlefont=dict(color="white"),
             tickangle=90,
-            tickfont=dict(color="white")
+            tickfont=dict(color="white"),
+            ticklabelstandoff=5
         ),
         template='plotly_white',
         plot_bgcolor=COLOR_GRAPH_BACKGROUND,
@@ -724,7 +731,8 @@ def generate_err_chart_country(selected_genero, selected_country):
             title='Jogador',
             titlefont=dict(color="white"),
             tickangle=90,
-            tickfont=dict(color="white")
+            tickfont=dict(color="white"),
+            ticklabelstandoff=5
         ),
         yaxis=dict(
             title='Total de Erros',
@@ -842,15 +850,11 @@ def generate_player_statistics(player, selected_genero):
     # Update the layout
     fig.update_layout(
         showlegend=False,
-        title=dict(
-            text="Estatísticas do Jogador",
-            x=0.5,
-            font=dict(
-                family=FONT_CONST,
-                size=20,
-                color="white"
-            )
-        ),
+        autosize=True,
+        width=500,
+        height=350,
+        margin=dict(l=80, r=80, t=0, b=80, pad=4),
+        
         plot_bgcolor=COLOR_GRAPH_BACKGROUND,
         paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
