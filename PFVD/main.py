@@ -35,8 +35,9 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 app.layout = dbc.Container(fluid=True, children=[
     # Title of the app
     dbc.Row(
-        dbc.Col(
+        dbc.Col([
             html.H1("Dados de Vôlei nas Olimpíadas de Paris")
+        ], className='mt-5'
         )
     ),
 
@@ -49,14 +50,15 @@ app.layout = dbc.Container(fluid=True, children=[
                 id='generos-radio',  # ID of the radio button
                 inline=True
             ),
-            width={"size": 6, "offset": 3},  # Centralizando o componente na tela
+            width={"size": 6, "offset": 3},
+            className='mt-3'
         )
     ),
 
     dbc.Row([
         dbc.Col([
             dbc.Row([
-                html.H2(children="Todos Os Países"),
+                html.H2(children="Todos Os Países", className='mt-4'),
             ]),
             dbc.Row([
                 dcc.Graph(id='stacked_bars_chart'),
@@ -72,7 +74,7 @@ app.layout = dbc.Container(fluid=True, children=[
             dbc.Row([
                 dcc.Graph(id='scatter_chart_attacks_blocks')
             ])
-        ], width=6),
+        ], width=5, style={'border-radius': '10px', 'background-color': '#222e3a'}, className='m-5'),
         dbc.Col([
             dbc.Row([
                 dbc.Col([
@@ -81,7 +83,7 @@ app.layout = dbc.Container(fluid=True, children=[
                         dcc.Dropdown(
                             id="country"
                     )], className='country-container')
-                ])
+                ], className='mt-4')
             ]),
             dbc.Row([
                 dbc.Col([
@@ -106,7 +108,7 @@ app.layout = dbc.Container(fluid=True, children=[
                 dbc.Col([
                     dbc.Row([
                         html.Div([
-                            html.H2(children="Estatísticas por jogador"),
+                            html.H5(children="Estatísticas por jogador"),
                         # Dropdown to select the country (The options of countries will be based on the selected genre)
                         dcc.Dropdown(
                             id="player"
@@ -117,9 +119,9 @@ app.layout = dbc.Container(fluid=True, children=[
                     
                 ], width=6)
             ])
-        ], width=6)
-    ]),
-], className='main-container')
+        ], width=5, style={'border-radius': '10px', 'background-color': '#222e3a'}, className='m-5')
+    ], justify='center'),
+])
 
 # Callback to update the pie chart of all countries
 @app.callback(
@@ -863,9 +865,6 @@ def generate_player_statistics(player, selected_genero):
     # Update the layout
     fig.update_layout(
         showlegend=False,
-        autosize=True,
-        width=500,
-        height=350,
         margin=dict(l=80, r=80, t=0, b=80, pad=4),
         
         plot_bgcolor=COLOR_GRAPH_BACKGROUND,

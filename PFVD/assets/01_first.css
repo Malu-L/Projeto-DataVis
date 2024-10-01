@@ -2,7 +2,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #222e3a;
+  background-color: #415366;
   color: white; /* Optional: Set text color to white for better contrast */
   font-family: Arial, sans-serif; /* Optional: Set a default font */
 }
@@ -26,13 +26,8 @@ h2 {
   justify-content: center;
 }
 
-/* Container for all sections */
-.container {
-  column-gap: 10%;
-}
-
 .stats-container {
-  margin-top: 2%;
+  margin-top: 8%;
   display: flex;
   justify-content: center;
   align-items: center;
