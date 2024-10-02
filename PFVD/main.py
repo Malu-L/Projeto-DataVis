@@ -156,6 +156,7 @@ def generate_pie_chart_all_countries(selected_genero):
     # Update the layout
     fig.update_layout(
         showlegend=True,
+        margin=dict(l=80, r=80, t=100, b=0, pad=4),
         title=dict(
             text='Distribuição de Pontos por Categoria',
             x=0.5,
@@ -273,7 +274,7 @@ def generate_scatter_attacks_blocks(selected_genero):
     # Update layout
     fig.update_layout(
         title=dict(
-            text='Bloqueios bem-sucedidos vs. Tentativas de Ataque',
+            text='Bloqueios realizados x Tentativas de Ataque',
             x=0.5,
             font=dict(
                 family=FONT_CONST,
@@ -287,7 +288,7 @@ def generate_scatter_attacks_blocks(selected_genero):
             tickfont=dict(color="white")
         ),
         yaxis = dict(
-            title='Bloqueios bem-sucedidos',
+            title='Bloqueios realizados',
             titlefont=dict(color="white"),
             tickfont=dict(color="white")
         ),
@@ -377,14 +378,6 @@ def generate_stacked_bars(selected_genero):
         paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
 
-    # Add annotation text under the legend
-    fig.add_annotation(
-        text="*Sucesso: Desencadeou ou Impediu ponto",
-        xref="paper", yref="paper",
-        x=1.4, y=0.53,
-        showarrow=False,
-        font=dict(size=10, color="white")
-    )
     return fig
 
 # Callback to update the options of the country dropdown based on the selected genre
@@ -443,6 +436,7 @@ def generate_pie_chart_country(selected_country, selected_genero):
     # Update the layout
     fig.update_layout(
         showlegend=True,
+        margin=dict(l=80, r=80, t=100, b=0, pad=4),
         title=dict(
             text='Distribuição de Pontos por Categoria',
             x=0.5,
@@ -570,7 +564,7 @@ def generate_scatter_attacks_blocks_per_country(selected_genero, selected_countr
     # Update layout
     fig.update_layout(
         title=dict(
-            text=f'Bloqueios bem-sucedidos vs. Tentativas de Ataque de {selected_country}',
+            text=f'Bloqueios realizados vs. Tentativas de Ataque de {selected_country}',
             x=0.5,
             font=dict(
                 family=FONT_CONST,
@@ -584,7 +578,7 @@ def generate_scatter_attacks_blocks_per_country(selected_genero, selected_countr
             tickfont=dict(color="white")
         ),
         yaxis = dict(
-            title='Bloqueios bem-sucedidos',
+            title='Bloqueios realizados',
             titlefont=dict(color="white"),
             tickfont=dict(color="white")
         ),
