@@ -1,4 +1,5 @@
 from dash import Dash
+import dash_bootstrap_components as dbc
 from dash import html, dcc, Output, Input
 import plotly.express as px
 import plotly.graph_objects as go
@@ -28,80 +29,102 @@ def return_df_genero(selected_genero):
     return df, color
 
 # Inicializing the Dash app
-app = Dash(__name__)
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Defining the layout of the app
-app.layout = html.Div([
+app.layout = dbc.Container(fluid=True, children=[
     # Title of the app
-    html.H1(children='Dados de Vôlei nas Olimpíadas de Paris'),
-    
-    # Radio button to select the genre
-    dcc.RadioItems(
-        options=[{'label': genero, 'value': genero} for genero in all_generos],  # List of all options
-        value='Feminino e Masculino',  # Default Button
-        id='generos-radio',  # ID of the radio button
-        inline=True
+    dbc.Row(
+        dbc.Col([
+            html.H1("Dados de Vôlei nas Olimpíadas de Paris")
+        ], className='mt-5'
+        )
     ),
-    html.Div([
-        html.Div([
-            html.Div([
-                html.H2(children="Todos Os Países"),
-                # Graph to show the stacked bars chart
-                dcc.Graph(id='stacked_bars_chart', style={'flex': '1'}),
-                html.Div([
-                    # Graph to show the pie chart
-                    dcc.Graph(id='pie_chart_all_countries', style={'flex': '1'}),
-                    # Graph to show the scatter chart
-                    dcc.Graph(id='scatter_chart', style={'flex': '1'}),
-                ], className='graph-container'),
-                html.Div([
-                    # Graph to show the stacked bars chart
-                    dcc.Graph(id='scatter_chart_attacks_blocks', style={'flex': '1'})
-                ], className='graph-container'),
-            ], className='section-no-margin all-countries-section'),
-        ], className='section-no-margin'),
-        html.Div([
-            html.Div([
-                html.H2(children="Por País"),
-                # Dropdown to select the country (The options of countries will be based on the selected genre)
-                dcc.Dropdown(
-                    id="country"
-                ),
-                html.Div([
-                    # Graph to show the pie chart
-                    dcc.Graph(id='pie_chart', style={'flex': '1'}),
-                    # Graph to show the scatter chart by country
-                    dcc.Graph(id='scatter_chart_country', style={'flex': '1'})
-                ], className='graph-container'),
-                html.Div([
-                    # Graph to show the acumulative chart of points
-                    dcc.Graph(id='points_acc_chart_country', style={'flex': '1'}),
-                    # Graph to show the acumulative chart of errors
-                    dcc.Graph(id='points_err_chart_country', style={'flex': '1'})
-                ], className='graph-container'),
-                html.Div([
-                    # Graph to show the scatter chart of attack X block by country
-                    dcc.Graph(id='scatter_chart_attacks_blocks_per_country', style={'flex': '1'}),
-                    # Dropdown to select the player (The options of players will be based on the selected genre and country)
-                    html.Div([
-                        dcc.Dropdown(
-                            id="player"
-                        ),
-                        # Graph to show the player statistics
-                        dcc.Graph(id='players_chart')], style={'flex': '1'})
-                ], className='graph-container'),
-            ], className='section-no-margin country-section'),
-            # html.Div([
-            #     html.H2(children="Por Jogador"),
-            #     # Dropdown to select the player (The options of players will be based on the selected genre and country)
-            #     dcc.Dropdown(
-            #         id="player"
-            #     ),
-            #     # Graph to show the player statistics
-            #     dcc.Graph(id='players_chart')
-            # ], className='section-no-margin player-section'),
-        ], className='section-no-margin'),
-    ], className='container'),
+
+    # Radio button to select the genre
+    dbc.Row(
+        dbc.Col(
+            dbc.RadioItems(
+                options=[{'label': genero, 'value': genero} for genero in all_generos],  # List of all options
+                value='Feminino e Masculino',  # Default Button
+                id='generos-radio',  # ID of the radio button
+                inline=True
+            ),
+            width={"size": 6, "offset": 3},
+            className='mt-3'
+        )
+    ),
+
+    dbc.Row([
+        dbc.Col([
+            dbc.Row([
+                dbc.Col([
+                    dbc.Row([
+                        html.H2(children="Todos Os Países", className='mt-4'),
+                    ]),
+                    dbc.Row([
+                        dcc.Graph(id='stacked_bars_chart'),
+                    ]),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Graph(id='pie_chart_all_countries')
+                        ], width=6),
+                        dbc.Col([
+                            dcc.Graph(id='scatter_chart')
+                        ], width=6)
+                    ]),
+                    dbc.Row([
+                        dcc.Graph(id='scatter_chart_attacks_blocks')
+                    ])
+                ], width=6),
+                dbc.Col([
+                    dbc.Row([
+                        dbc.Col([
+                            html.Div([
+                                html.H2(children="Por País"),
+                                dcc.Dropdown(
+                                    id="country"
+                            )], className='country-container')
+                        ], className='mt-4')
+                    ]),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Graph(id='pie_chart')
+                        ], width=6),
+                        dbc.Col([
+                            dcc.Graph(id='scatter_chart_country')
+                        ], width=6)
+                    ]),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Graph(id='points_acc_chart_country')
+                        ], width=6),
+                        dbc.Col([
+                            dcc.Graph(id='points_err_chart_country')
+                        ], width=6)
+                    ]),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Graph(id='scatter_chart_attacks_blocks_per_country'),
+                        ], width=6),
+                        dbc.Col([
+                            dbc.Row([
+                                html.Div([
+                                    html.H5(children="Estatísticas por jogador"),
+                                # Dropdown to select the country (The options of countries will be based on the selected genre)
+                                dcc.Dropdown(
+                                    id="player"
+                            )], className="stats-container"),
+                            dbc.Row([
+                                dcc.Graph(id='players_chart')])
+                            ])
+
+                        ], width=6)
+                    ])
+                ], width=6)
+            ])
+        ], width=11, style={'border-radius': '10px', 'background-color': '#222e3a'}, className='m-1')
+    ], justify='center'),
 ])
 
 # Callback to update the pie chart of all countries
@@ -133,6 +156,7 @@ def generate_pie_chart_all_countries(selected_genero):
     # Update the layout
     fig.update_layout(
         showlegend=True,
+        margin=dict(l=80, r=80, t=100, b=0, pad=4),
         title=dict(
             text='Distribuição de Pontos por Categoria',
             x=0.5,
@@ -207,7 +231,8 @@ def generate_scatter_chart_all_countries(selected_genero):
             title='Número de Tentativas',
             titlefont=dict(color="white"),
             tickangle=90,
-            tickfont=dict(color="white")
+            tickfont=dict(color="white"),
+            ticklabelstandoff=5
         ),
         yaxis = dict(
             title='Número de Sucessos',
@@ -249,7 +274,7 @@ def generate_scatter_attacks_blocks(selected_genero):
     # Update layout
     fig.update_layout(
         title=dict(
-            text='Bloqueios bem-sucedidos vs. Tentativas de Ataque',
+            text='Bloqueios realizados x Tentativas de Ataque',
             x=0.5,
             font=dict(
                 family=FONT_CONST,
@@ -263,7 +288,7 @@ def generate_scatter_attacks_blocks(selected_genero):
             tickfont=dict(color="white")
         ),
         yaxis = dict(
-            title='Bloqueios bem-sucedidos',
+            title='Bloqueios realizados',
             titlefont=dict(color="white"),
             tickfont=dict(color="white")
         ),
@@ -339,7 +364,8 @@ def generate_stacked_bars(selected_genero):
             title='Países',
             titlefont=dict(color="white"),
             tickangle=90,
-            tickfont=dict(color="white")
+            tickfont=dict(color="white"),
+            ticklabelstandoff=5
         ),
         yaxis = dict(
             title='Quantidade de Sucessos',
@@ -352,14 +378,6 @@ def generate_stacked_bars(selected_genero):
         paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
 
-    # Add annotation text under the legend
-    fig.add_annotation(
-        text="*Sucesso: Desencadeou ou Impediu ponto",
-        xref="paper", yref="paper",
-        x=1.4, y=0.53,
-        showarrow=False,
-        font=dict(size=10, color="white")
-    )
     return fig
 
 # Callback to update the options of the country dropdown based on the selected genre
@@ -418,8 +436,9 @@ def generate_pie_chart_country(selected_country, selected_genero):
     # Update the layout
     fig.update_layout(
         showlegend=True,
+        margin=dict(l=80, r=80, t=100, b=0, pad=4),
         title=dict(
-            text='Distribuição de Pontos por Categoria de um País',
+            text='Distribuição de Pontos por Categoria',
             x=0.5,
             font=dict(
                 family=FONT_CONST,
@@ -486,7 +505,7 @@ def generate_scatter_chart_country(selected_genero, selected_country):
     # Update layout
     fig.update_layout(
         title=dict(
-            text='Correlação entre Tentativas e Sucessos de um País',
+            text='Correlação entre Tentativas e Sucessos',
             x=0.5,
             font=dict(
                 family=FONT_CONST,
@@ -545,7 +564,7 @@ def generate_scatter_attacks_blocks_per_country(selected_genero, selected_countr
     # Update layout
     fig.update_layout(
         title=dict(
-            text=f'Bloqueios bem-sucedidos vs. Tentativas de Ataque de {selected_country}',
+            text=f'Bloqueios realizados vs. Tentativas de Ataque de {selected_country}',
             x=0.5,
             font=dict(
                 family=FONT_CONST,
@@ -559,7 +578,7 @@ def generate_scatter_attacks_blocks_per_country(selected_genero, selected_countr
             tickfont=dict(color="white")
         ),
         yaxis = dict(
-            title='Bloqueios bem-sucedidos',
+            title='Bloqueios realizados',
             titlefont=dict(color="white"),
             tickfont=dict(color="white")
         ),
@@ -655,7 +674,8 @@ def generate_acc_chart_country(selected_genero, selected_country):
             title='Jogador',
             titlefont=dict(color="white"),
             tickangle=90,
-            tickfont=dict(color="white")
+            tickfont=dict(color="white"),
+            ticklabelstandoff=5
         ),
         template='plotly_white',
         plot_bgcolor=COLOR_GRAPH_BACKGROUND,
@@ -724,7 +744,8 @@ def generate_err_chart_country(selected_genero, selected_country):
             title='Jogador',
             titlefont=dict(color="white"),
             tickangle=90,
-            tickfont=dict(color="white")
+            tickfont=dict(color="white"),
+            ticklabelstandoff=5
         ),
         yaxis=dict(
             title='Total de Erros',
@@ -842,15 +863,8 @@ def generate_player_statistics(player, selected_genero):
     # Update the layout
     fig.update_layout(
         showlegend=False,
-        title=dict(
-            text="Estatísticas do Jogador",
-            x=0.5,
-            font=dict(
-                family=FONT_CONST,
-                size=20,
-                color="white"
-            )
-        ),
+        margin=dict(l=80, r=80, t=0, b=80, pad=4),
+        
         plot_bgcolor=COLOR_GRAPH_BACKGROUND,
         paper_bgcolor=COLOR_GRAPH_BACKGROUND
     )
