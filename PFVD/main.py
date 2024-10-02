@@ -58,68 +58,72 @@ app.layout = dbc.Container(fluid=True, children=[
     dbc.Row([
         dbc.Col([
             dbc.Row([
-                html.H2(children="Todos Os Países", className='mt-4'),
-            ]),
-            dbc.Row([
-                dcc.Graph(id='stacked_bars_chart'),
-            ]),
-            dbc.Row([
-                dbc.Col([
-                    dcc.Graph(id='pie_chart_all_countries')
-                ], width=6),
-                dbc.Col([
-                    dcc.Graph(id='scatter_chart')
-                ], width=6)
-            ]),
-            dbc.Row([
-                dcc.Graph(id='scatter_chart_attacks_blocks')
-            ])
-        ], width=5, style={'border-radius': '10px', 'background-color': '#222e3a'}, className='m-5'),
-        dbc.Col([
-            dbc.Row([
-                dbc.Col([
-                    html.Div([
-                        html.H2(children="Por País"),
-                        dcc.Dropdown(
-                            id="country"
-                    )], className='country-container')
-                ], className='mt-4')
-            ]),
-            dbc.Row([
-                dbc.Col([
-                    dcc.Graph(id='pie_chart')
-                ], width=6),
-                dbc.Col([
-                    dcc.Graph(id='scatter_chart_country')
-                ], width=6)
-            ]),
-            dbc.Row([
-                dbc.Col([
-                    dcc.Graph(id='points_acc_chart_country')
-                ], width=6),
-                dbc.Col([
-                    dcc.Graph(id='points_err_chart_country')
-                ], width=6)
-            ]),
-            dbc.Row([
-                dbc.Col([
-                    dcc.Graph(id='scatter_chart_attacks_blocks_per_country'),
-                ], width=6),
                 dbc.Col([
                     dbc.Row([
-                        html.Div([
-                            html.H5(children="Estatísticas por jogador"),
-                        # Dropdown to select the country (The options of countries will be based on the selected genre)
-                        dcc.Dropdown(
-                            id="player"
-                    )], className="stats-container"),
+                        html.H2(children="Todos Os Países", className='mt-4'),
+                    ]),
                     dbc.Row([
-                        dcc.Graph(id='players_chart')])
+                        dcc.Graph(id='stacked_bars_chart'),
+                    ]),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Graph(id='pie_chart_all_countries')
+                        ], width=6),
+                        dbc.Col([
+                            dcc.Graph(id='scatter_chart')
+                        ], width=6)
+                    ]),
+                    dbc.Row([
+                        dcc.Graph(id='scatter_chart_attacks_blocks')
                     ])
-                    
+                ], width=6),
+                dbc.Col([
+                    dbc.Row([
+                        dbc.Col([
+                            html.Div([
+                                html.H2(children="Por País"),
+                                dcc.Dropdown(
+                                    id="country"
+                            )], className='country-container')
+                        ], className='mt-4')
+                    ]),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Graph(id='pie_chart')
+                        ], width=6),
+                        dbc.Col([
+                            dcc.Graph(id='scatter_chart_country')
+                        ], width=6)
+                    ]),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Graph(id='points_acc_chart_country')
+                        ], width=6),
+                        dbc.Col([
+                            dcc.Graph(id='points_err_chart_country')
+                        ], width=6)
+                    ]),
+                    dbc.Row([
+                        dbc.Col([
+                            dcc.Graph(id='scatter_chart_attacks_blocks_per_country'),
+                        ], width=6),
+                        dbc.Col([
+                            dbc.Row([
+                                html.Div([
+                                    html.H5(children="Estatísticas por jogador"),
+                                # Dropdown to select the country (The options of countries will be based on the selected genre)
+                                dcc.Dropdown(
+                                    id="player"
+                            )], className="stats-container"),
+                            dbc.Row([
+                                dcc.Graph(id='players_chart')])
+                            ])
+
+                        ], width=6)
+                    ])
                 ], width=6)
             ])
-        ], width=5, style={'border-radius': '10px', 'background-color': '#222e3a'}, className='m-5')
+        ], width=11, style={'border-radius': '10px', 'background-color': '#222e3a'}, className='m-1')
     ], justify='center'),
 ])
 
@@ -440,7 +444,7 @@ def generate_pie_chart_country(selected_country, selected_genero):
     fig.update_layout(
         showlegend=True,
         title=dict(
-            text='Distribuição de Pontos por Categoria de um País',
+            text='Distribuição de Pontos por Categoria',
             x=0.5,
             font=dict(
                 family=FONT_CONST,
@@ -507,7 +511,7 @@ def generate_scatter_chart_country(selected_genero, selected_country):
     # Update layout
     fig.update_layout(
         title=dict(
-            text='Correlação entre Tentativas e Sucessos de um País',
+            text='Correlação entre Tentativas e Sucessos',
             x=0.5,
             font=dict(
                 family=FONT_CONST,
